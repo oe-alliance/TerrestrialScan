@@ -93,6 +93,7 @@ class TerrestrialScan(Screen):
 		self.networkid = 0
 		self.restrict_to_networkid = False
 		self.stabliseTime = 2 # time in seconds for tuner to stablise on tune before taking a signal quality reading
+		self.region = None
 		if args:
 			if "feid" in args:
 				self.selectedNIM = args["feid"]
@@ -104,6 +105,8 @@ class TerrestrialScan(Screen):
 				self.restrict_to_networkid = args["restrict_to_networkid"]
 			if "stabliseTime" in args:
 				self.stabliseTime = args["stabliseTime"]
+			if "region" in args:
+				self.region = args["region"]
 		self.isT2tuner = False
 		self.frontend = None
 		self["Frontend"] = FrontendStatus(frontend_source = lambda : self.frontend, update_interval = 100)
@@ -133,6 +136,14 @@ class TerrestrialScan(Screen):
 			for a in range(0,8) + range(50,74):
 				freq = (base_frequency + (a * bandwidth * 1000000 + (2000000 if a > 8 else 0)))
 				self.scanTransponders.append({"frequency": freq, "system": eDVBFrontendParametersTerrestrial.System_DVB_T, "bandwidth": bandwidth})
+		if self.uhf_vhf == "xml":
+			# frequency 1, inversion 9, bandwidth 2, fechigh 4, feclow 5, modulation 3, transmission 7, guard 6, hierarchy 8, system 10, plp_id 1
+			for tp in nimmanager.getTranspondersTerrestrial(self.region):
+				# system contains "-1" when both DVB-T and DVB-T2 are to be scanned
+				if tp[10] < 1: # DVB-T
+					self.scanTransponders.append({"frequency": tp[1], "system": eDVBFrontendParametersTerrestrial.System_DVB_T, "bandwidth": tp[2] / 1000000})
+				if tp[10] != 0: # DVB-T2
+					self.scanTransponders.append({"frequency": tp[1], "system": eDVBFrontendParametersTerrestrial.System_DVB_T2, "bandwidth": tp[2] / 1000000})
 		self.transponders_found = []
 		self.transponders_unique = {}
 		self.onClose.append(self.__onClose)

@@ -129,7 +129,7 @@ class MakeBouquet(Screen):
 		else:
 			if len(self.transponders_unique) > 0:
 				self.corelate_data()
-				if self.makexmlfile:
+				if config.plugins.TerrestrialScan.uhf_vhf.value != "xml" and self.makexmlfile:
 					self.createTerrestrialXml()
 				if self.makebouquet and len(self.services_dict) > 0:
 					self.createBouquet()

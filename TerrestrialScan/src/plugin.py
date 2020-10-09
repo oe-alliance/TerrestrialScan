@@ -26,10 +26,13 @@ config.plugins.TerrestrialScan.networkid_bool = ConfigYesNo(default = False)
 config.plugins.TerrestrialScan.networkid = ConfigInteger(default = 0, limits = (0, 65535))
 config.plugins.TerrestrialScan.clearallservices = ConfigYesNo(default = True)
 config.plugins.TerrestrialScan.onlyfree = ConfigYesNo(default = True)
-config.plugins.TerrestrialScan.uhf_vhf = ConfigSelection(default = 'uhf', choices = [
+uhf_vhf_choices = [
 			('uhf', _("UHF Europe")),
 			('uhf_vhf', _("UHF/VHF Europe")),
-			('australia', _("Australia"))])
+			('australia', _("Australia generic"))]
+if nimmanager.getTerrestrialsList(): # check transponders are available from terrestrial.xml
+	uhf_vhf_choices.append(('xml', _("From XML")))
+config.plugins.TerrestrialScan.uhf_vhf = ConfigSelection(default = 'uhf', choices = uhf_vhf_choices)
 config.plugins.TerrestrialScan.makebouquet = ConfigYesNo(default = True)
 config.plugins.TerrestrialScan.makexmlfile = ConfigYesNo(default = False)
 config.plugins.TerrestrialScan.lcndescriptor = ConfigSelection(default = 0x83, choices = [
@@ -64,15 +67,15 @@ class TerrestrialScanScreen(ConfigListScreen, Screen):
 		self.transponders_unique = {}
 		self.session.postScanService = self.session.nav.getCurrentlyPlayingServiceOrGroup()
 
-		dvbt_capable_nims = []
+		self.dvbt_capable_nims = []
 		for nim in nimmanager.nim_slots:
 			if self.config_mode(nim) != "nothing":
 				if nim.isCompatible("DVB-T") or (nim.isCompatible("DVB-S") and nim.canBeCompatible("DVB-T")):
-					dvbt_capable_nims.append(nim.slot)
+					self.dvbt_capable_nims.append(nim.slot)
 
 		nim_list = []
 		nim_list.append((-1, _("Automatic")))
-		for x in dvbt_capable_nims:
+		for x in self.dvbt_capable_nims:
 			nim_list.append((nimmanager.nim_slots[x].slot, nimmanager.nim_slots[x].friendly_full_description))
 		self.scan_nims = ConfigSelection(choices = nim_list)
 
@@ -83,29 +86,67 @@ class TerrestrialScanScreen(ConfigListScreen, Screen):
 		self.selectionChanged()
 
 	def createSetup(self):
-		indent = "- "
-		setup_list = [
-			getConfigListEntry(_("Tuner"), self.scan_nims,_('Select a tuner that is configured for terrestrial scans. "Automatic" will pick the highest spec available tuner.')),
-			getConfigListEntry(_("Band"), config.plugins.TerrestrialScan.uhf_vhf,_('Most transmitters in European countries only have TV channels in the UHF band.')),
-			getConfigListEntry(_("Clear before scan"), config.plugins.TerrestrialScan.clearallservices,_('If you select "yes" all stored terrestrial channels will be deleted before starting the current search.')),
-			getConfigListEntry(_("Only free scan"), config.plugins.TerrestrialScan.onlyfree,_('If you select "yes" the scan will only save channels that are not encrypted; "no" will find encrypted and non-encrypted channels.')),
-			getConfigListEntry(_('Restrict search to single ONID'), config.plugins.TerrestrialScan.networkid_bool,_('Select "Yes" to restrict the search to multiplexes that belong to a single original network ID (ONID). Select "No" to search all ONIDs.')),
-		]
+		self.indent = "- "
+		setup_list = []
+		setup_list.append(getConfigListEntry(_("Tuner"), self.scan_nims,_('Select a tuner that is configured for terrestrial scans. "Automatic" will pick the highest spec available tuner.')))
+		setup_list.append(getConfigListEntry(_("Bandplan"), config.plugins.TerrestrialScan.uhf_vhf,_('Most transmitters in European countries only have TV channels in the UHF band. Select "From XML" to access bandplans that are preloaded on the device.')))
+
+		if config.plugins.TerrestrialScan.uhf_vhf.value == "xml":
+			self.setTerrestrialLocationEntries()
+			setup_list.append(self.terrestrialCountriesEntry)
+			setup_list.append(self.terrestrialRegionsEntry)
+		
+		setup_list.append(getConfigListEntry(_("Clear before scan"), config.plugins.TerrestrialScan.clearallservices,_('If you select "yes" all stored terrestrial channels will be deleted before starting the current search.')))
+		setup_list.append(getConfigListEntry(_("Only free scan"), config.plugins.TerrestrialScan.onlyfree,_('If you select "yes" the scan will only save channels that are not encrypted; "no" will find encrypted and non-encrypted channels.')))
+		setup_list.append(getConfigListEntry(_('Restrict search to single ONID'), config.plugins.TerrestrialScan.networkid_bool,_('Select "Yes" to restrict the search to multiplexes that belong to a single original network ID (ONID). Select "No" to search all ONIDs.')))
 
 		if config.plugins.TerrestrialScan.networkid_bool.value:
-			setup_list.append(getConfigListEntry(indent + _('ONID to search'), config.plugins.TerrestrialScan.networkid,_('Enter the original network ID (ONID) of the multiplexes you wish to restrict the search to. UK terrestrial television normally ONID "9018".')))
+			setup_list.append(getConfigListEntry(self.indent + _('ONID to search'), config.plugins.TerrestrialScan.networkid,_('Enter the original network ID (ONID) of the multiplexes you wish to restrict the search to. UK terrestrial television normally ONID "9018".')))
 
 		setup_list.append(getConfigListEntry(_("Create terrestrial bouquet"), config.plugins.TerrestrialScan.makebouquet,_('If you select "yes" and LCNs are found in the NIT, the scan will create a bouquet of terrestrial channels in LCN order and add it to the bouquet list.')))
 		if config.plugins.TerrestrialScan.makebouquet.value:
 			setup_list.append(getConfigListEntry(_("LCN Descriptor"), config.plugins.TerrestrialScan.lcndescriptor,_('Select the LCN descriptor used in your area. 0x83 is the default DVB standard descriptor. 0x87 is used in some Scandinavian countries.')))
 			if config.plugins.TerrestrialScan.lcndescriptor.value == 0x87:
 				setup_list.append(getConfigListEntry(_("Channel list ID"), config.plugins.TerrestrialScan.channel_list_id,_('Enter channel list ID used in your area. If you are not sure enter zero.')))
-
-		setup_list.append(getConfigListEntry(_("Create terrestrial.xml file"), config.plugins.TerrestrialScan.makexmlfile,_('Select "yes" to create a custom terrestrial.xml file and install it in /etc/enigma2 for system scans to use.')))
-		setup_list.append(getConfigListEntry(_("Signal quality stabilization time (secs)"), config.plugins.TerrestrialScan.stabliseTime,_('Period of time to wait for the tuner to stabilize before taking a signal quality reading. 2 seconds is good for most hardware but some may require longer.')))
+		
+		if config.plugins.TerrestrialScan.uhf_vhf.value != "xml":
+			setup_list.append(getConfigListEntry(_("Create terrestrial.xml file"), config.plugins.TerrestrialScan.makexmlfile,_('Select "yes" to create a custom terrestrial.xml file and install it in /etc/enigma2 for system scans to use.')))
+		setup_list.append(getConfigListEntry(_("Signal quality stabisation time (secs)"), config.plugins.TerrestrialScan.stabliseTime,_('Period of time to wait for the tuner to stabalise before taking a signal quality reading. 2 seconds is good for most hardware but some may require longer.')))
 
 		self["config"].list = setup_list
 		self["config"].l.setList(setup_list)
+
+	def setTerrestrialLocationEntries(self):
+		slotid = self.dvbt_capable_nims[0] if self.scan_nims.value < 0 else self.scan_nims.value # number of first enabled terrestrial tuner if automatic is selected.
+		nimConfig = nimmanager.nim_slots[slotid].config
+
+		# country
+		if not hasattr(self, "terrestrialCountriesEntry"):
+			terrestrialcountrycodelist = nimmanager.getTerrestrialsCountrycodeList()
+			terrestrialcountrycode = nimmanager.getTerrestrialCountrycode(slotid) # number of first enabled terrestrial tuner if automatic is selected.
+			default = terrestrialcountrycode in terrestrialcountrycodelist and terrestrialcountrycode or None
+			choices = [("all", _("All"))]+sorted([(x, self.countrycodeToCountry(x)) for x in terrestrialcountrycodelist], key=lambda listItem: listItem[1])
+			self.terrestrialCountries = ConfigSelection(default = default, choices = choices)
+			self.terrestrialCountriesEntry = getConfigListEntry(self.indent + _("Country"), self.terrestrialCountries, _("Select your country. If not available select 'all'."))
+
+		# region
+		if self.terrestrialCountries.value == "all":
+			terrstrialNames = [x[0] for x in sorted(sorted(nimmanager.getTerrestrialsList(), key=lambda listItem: listItem[0]), key=lambda listItem: self.countrycodeToCountry(listItem[2]))]
+		else:
+			terrstrialNames = sorted([x[0] for x in nimmanager.getTerrestrialsByCountrycode(self.terrestrialCountries.value)])
+		default = nimConfig.terrestrial.value in terrstrialNames and nimConfig.terrestrial.value or None
+		self.terrestrialRegions = ConfigSelection(default = default, choices = terrstrialNames)
+		self.terrestrialRegionsEntry = getConfigListEntry(self.indent + _("Region"), self.terrestrialRegions, _("Select your region. If not available change 'Country' to 'all' and select one of the default alternatives."))
+
+	def countrycodeToCountry(self, cc):
+		if not hasattr(self, 'countrycodes'):
+			self.countrycodes = {}
+			from Tools.CountryCodes import ISO3166
+			for country in ISO3166:
+				self.countrycodes[country[2]] = country[0]
+		if cc.upper() in self.countrycodes:
+			return self.countrycodes[cc.upper()]
+		return cc
 
 	def selectionChanged(self):
 		self["description"].setText(self["config"].getCurrent()[2])
@@ -126,12 +167,17 @@ class TerrestrialScanScreen(ConfigListScreen, Screen):
 		return SetupSummary
 
 	def keyGo(self):
-		config.plugins.TerrestrialScan.save()
+#		config.plugins.TerrestrialScan.save()
+		for x in self["config"].list:
+			x[1].save()
 		configfile.save()
 		self.startScan()
 
 	def startScan(self):
-		self.session.openWithCallback(self.terrestrialScanCallback, TerrestrialScan, {"feid": int(self.scan_nims.value), "uhf_vhf": config.plugins.TerrestrialScan.uhf_vhf.value, "networkid": int(config.plugins.TerrestrialScan.networkid.value), "restrict_to_networkid": config.plugins.TerrestrialScan.networkid_bool.value, "stabliseTime": config.plugins.TerrestrialScan.stabliseTime.value})
+		args = {"feid": int(self.scan_nims.value), "uhf_vhf": config.plugins.TerrestrialScan.uhf_vhf.value, "networkid": int(config.plugins.TerrestrialScan.networkid.value), "restrict_to_networkid": config.plugins.TerrestrialScan.networkid_bool.value, "stabliseTime": config.plugins.TerrestrialScan.stabliseTime.value}
+		if config.plugins.TerrestrialScan.uhf_vhf.value == "xml":
+			args["region"] = self.terrestrialRegions.value
+		self.session.openWithCallback(self.terrestrialScanCallback, TerrestrialScan, args)
 
 	def keyCancel(self):
 		if self["config"].isChanged():
@@ -150,7 +196,7 @@ class TerrestrialScanScreen(ConfigListScreen, Screen):
 	def newConfig(self):
 		cur = self["config"].getCurrent()
 		if len(cur)>1:
-			if cur[1] in (config.plugins.TerrestrialScan.networkid_bool, config.plugins.TerrestrialScan.makebouquet, config.plugins.TerrestrialScan.lcndescriptor):
+			if cur[1] in (config.plugins.TerrestrialScan.uhf_vhf, getattr(self, "terrestrialCountries", None), config.plugins.TerrestrialScan.networkid_bool, config.plugins.TerrestrialScan.makebouquet, config.plugins.TerrestrialScan.lcndescriptor):
 				self.createSetup()
 
 	def cancelCallback(self, answer):
