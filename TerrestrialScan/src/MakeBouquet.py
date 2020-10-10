@@ -129,6 +129,7 @@ class MakeBouquet(Screen):
 		else:
 			if len(self.transponders_unique) > 0:
 				self.corelate_data()
+				self.solveDuplicates()
 				if config.plugins.TerrestrialScan.uhf_vhf.value != "xml" and self.makexmlfile:
 					self.createTerrestrialXml()
 				if self.makebouquet and len(self.services_dict) > 0:
@@ -284,6 +285,7 @@ class MakeBouquet(Screen):
 				continue
 
 			servicekey = "%x:%x:%x" % (service["transport_stream_id"], service["original_network_id"], service["service_id"])
+			service["signalQuality"] = self.transponder["signalQuality"] # Used for sorting of duplicate LCNs
 			self.tmp_services_dict[servicekey] = service
 
 	def readNIT(self):
@@ -390,11 +392,29 @@ class MakeBouquet(Screen):
 		eDVBDB.getInstance().reloadBouquets()
 
 	def corelate_data(self):
-		servicekeys = self.tmp_services_dict.keys()
+		servicekeys = self.iterateServicesBySNR(self.tmp_services_dict)
+		self.duplicates = []
 		for servicekey in servicekeys:
-			if servicekey in self.logical_channel_number_dict and self.logical_channel_number_dict[servicekey]["logical_channel_number"] not in self.services_dict:
+			if servicekey in self.logical_channel_number_dict:
 				self.tmp_services_dict[servicekey]["logical_channel_number"] = self.logical_channel_number_dict[servicekey]["logical_channel_number"]
-				self.services_dict[self.logical_channel_number_dict[servicekey]["logical_channel_number"]] = self.tmp_services_dict[servicekey]
+				if self.logical_channel_number_dict[servicekey]["logical_channel_number"] not in self.services_dict:
+					self.services_dict[self.logical_channel_number_dict[servicekey]["logical_channel_number"]] = self.tmp_services_dict[servicekey]
+				else:
+					self.duplicates.append(self.tmp_services_dict[servicekey])
+
+	def solveDuplicates(self):
+		if config.plugins.TerrestrialScan.uhf_vhf.value == "australia":
+			vacant = [i for i in range(350,400) if i not in self.services_dict]
+			for duplicate in self.duplicates:
+				if not vacant: # not slots available
+					break
+				self.services_dict[vacant.pop(0)] = duplicate
+
+	def iterateServicesBySNR(self, servicesDict):
+		# return a key list of services sorted by signal quality descending
+		sort_list = [(k,s["signalQuality"]) for k,s in servicesDict.items()]
+		return [x[0] for x in sorted(sort_list, key=lambda  listItem: listItem[1], reverse=True)]
+		
 
 	def readBouquetIndex(self):
 		try:
