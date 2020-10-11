@@ -384,10 +384,15 @@ class MakeBouquet(Screen):
 		self.namespace_dict[namespacekey] = namespace
 
 	def createBouquet(self):
-		bouquetIndexContent = self.readBouquetIndex()
-		if '"' + self.bouquetFilename + '"' not in bouquetIndexContent: # only edit the index if bouquet file is not present
-			self.writeBouquetIndex(bouquetIndexContent)
-		self.writeBouquet()
+		for tv_radio in ("tv", "radio"):
+			radio_services = [x for x in self.services_dict.values() if x["service_type"] in self.AUDIO_ALLOWED_TYPES]
+			if tv_radio == "radio" and (not radio_services or not config.plugins.TerrestrialScan.makeradiobouquet.value):
+				break
+			self.tv_radio = tv_radio
+			bouquetIndexContent = self.readBouquetIndex()
+			if '"' + self.bouquetFilename[:-2] + tv_radio + '"' not in bouquetIndexContent: # only edit the index if bouquet file is not present
+				self.writeBouquetIndex(bouquetIndexContent)
+			self.writeBouquet()
 
 		eDVBDB.getInstance().reloadBouquets()
 
@@ -418,7 +423,7 @@ class MakeBouquet(Screen):
 
 	def readBouquetIndex(self):
 		try:
-			bouquets = open(self.path + "/" + self.bouquetsIndexFilename, "r")
+			bouquets = open(self.path + "/%s%s" % (self.bouquetsIndexFilename[:-2], self.tv_radio), "r")
 		except Exception, e:
 			return ""
 		content = bouquets.read()
@@ -426,34 +431,37 @@ class MakeBouquet(Screen):
 		return content
 
 	def writeBouquetIndex(self, bouquetIndexContent):
-		bouquets_tv_list = []
-		bouquets_tv_list.append("#NAME Bouquets (TV)\n")
-		bouquets_tv_list.append("#SERVICE 1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"%s\" ORDER BY bouquet\n" % self.bouquetFilename)
+		bouquets_index_list = []
+		bouquets_index_list.append("#NAME Bouquets (%s)\n" % ("TV" if self.tv_radio == "tv" else "Radio"))
+		bouquets_index_list.append("#SERVICE 1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"%s%s\" ORDER BY bouquet\n" % (self.bouquetFilename[:-2], self.tv_radio))
 		if bouquetIndexContent:
 			lines = bouquetIndexContent.split("\n", 1)
 			if lines[0][:6] != "#NAME ":
-				bouquets_tv_list.append("%s\n" % lines[0])
+				bouquets_index_list.append("%s\n" % lines[0])
 			if len(lines) > 1:
-				bouquets_tv_list.append("%s" % lines[1])
+				bouquets_index_list.append("%s" % lines[1])
 
-		bouquets_tv = open(self.path + "/" + self.bouquetsIndexFilename, "w")
-		bouquets_tv.write(''.join(bouquets_tv_list))
-		bouquets_tv.close()
-		del bouquets_tv_list
+		bouquets_index = open(self.path + "/" + self.bouquetsIndexFilename[:-2] + self.tv_radio, "w")
+		bouquets_index.write(''.join(bouquets_index_list))
+		bouquets_index.close()
+		del bouquets_index_list
 
 	def writeBouquet(self):
+		allowed_service_types = not config.plugins.TerrestrialScan.makeradiobouquet.value and self.VIDEO_ALLOWED_TYPES + self.AUDIO_ALLOWED_TYPES or\
+					self.tv_radio == "tv" and self.VIDEO_ALLOWED_TYPES or\
+					self.tv_radio == "radio" and self.AUDIO_ALLOWED_TYPES
 		bouquet_list = []
 		bouquet_list.append("#NAME %s\n" % self.bouquetName)
 
 		numbers = range(1, 1001)
 		for number in numbers:
-			if number in self.services_dict:
+			if number in self.services_dict and self.services_dict[number]["service_type"] in allowed_service_types:
 				bouquet_list.append(self.bouquetServiceLine(self.services_dict[number]))
 			else:
 				bouquet_list.append("#SERVICE 1:832:d:0:0:0:0:0:0:0:\n")
 				bouquet_list.append("#DESCRIPTION  \n")
 
-		bouquetFile = open(self.path + "/" + self.bouquetFilename, "w")
+		bouquetFile = open(self.path + "/" + self.bouquetFilename[:-2] + self.tv_radio, "w")
 		bouquetFile.write(''.join(bouquet_list))
 		bouquetFile.close()
 		del bouquet_list
