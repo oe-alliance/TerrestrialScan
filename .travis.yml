@@ -22,6 +22,6 @@ git:
   depth: 1
 
 script:
-- echo compiling MisPlsLcnScan enigma2 plugin
+- echo compiling TerrestrialScan enigma2 plugin
 - python -m compileall .
 - echo done!
