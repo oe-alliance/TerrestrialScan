@@ -283,7 +283,7 @@ class TerrestrialScan(Screen):
 				current_slotid = slotid
 			self.rawchannel = resmanager.allocateRawChannel(slotid)
 			if self.rawchannel:
- 				print("[TerrestrialScan][getFrontend] Nim found on slot id %d" % (slotid))
+				print("[TerrestrialScan][getFrontend] Nim found on slot id %d" % (slotid))
 				current_slotid = slotid
 				break
 
