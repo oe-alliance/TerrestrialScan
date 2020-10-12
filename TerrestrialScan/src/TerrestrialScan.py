@@ -1,3 +1,4 @@
+from __future__ import print_function
 # for localized messages
 from . import _
 
@@ -51,27 +52,27 @@ def getChannelNumber(frequency, descr):
 	if descr in ("uhf", "uhf_vhf"):
 		if 174 < f < 230: 	# III
 			d = (f + 1) % 7
-			return str(int(f - 174)/7 + 5) + (d < 3 and "-" or d > 4 and "+" or "")
+			return str(int(f - 174)//7 + 5) + (d < 3 and "-" or d > 4 and "+" or "")
 		elif 470 <= f < 863: 	# IV,V
 			d = (f + 2) % 8
-			return str(int(f - 470) / 8 + 21) + (d < 3.5 and "-" or d > 4.5 and "+" or "")
+			return str(int(f - 470) // 8 + 21) + (d < 3.5 and "-" or d > 4.5 and "+" or "")
 	elif descr == "australia":
 		if 174 < f < 202:	 # III: CH6-CH9
-			return str(int(f - 174) / 7 + 6)
+			return str(int(f - 174) // 7 + 6)
 		elif 202 <= f < 209:	 # III: CH9A
 			return "9A"
 		elif 209 <= f < 230:	 # III: CH10-CH12
-			return str(int(f - 209) / 7 + 10)
+			return str(int(f - 209) // 7 + 10)
 		elif 526 < f < 820:	 # IV, V: CH28-CH69
-			return str(int(f - 526) / 7 + 28)
+			return str(int(f - 526) // 7 + 28)
 	return ""
 
 class TerrestrialScan(Screen):
 	skin = downloadBar
 
 	def __init__(self, session, args = 0):
-		print "[TerrestrialScan][__init__] Starting..."
-		print "[TerrestrialScan][__init__] args", args
+		print("[TerrestrialScan][__init__] Starting...")
+		print("[TerrestrialScan][__init__] args", args)
 		self.session = session
 		Screen.__init__(self, session)
 		Screen.setTitle(self, _("TerrestrialScan"))
@@ -141,9 +142,9 @@ class TerrestrialScan(Screen):
 			for tp in nimmanager.getTranspondersTerrestrial(self.region):
 				# system contains "-1" when both DVB-T and DVB-T2 are to be scanned
 				if tp[10] < 1: # DVB-T
-					self.scanTransponders.append({"frequency": tp[1], "system": eDVBFrontendParametersTerrestrial.System_DVB_T, "bandwidth": tp[2] / 1000000})
+					self.scanTransponders.append({"frequency": tp[1], "system": eDVBFrontendParametersTerrestrial.System_DVB_T, "bandwidth": tp[2] // 1000000})
 				if tp[10] != 0: # DVB-T2
-					self.scanTransponders.append({"frequency": tp[1], "system": eDVBFrontendParametersTerrestrial.System_DVB_T2, "bandwidth": tp[2] / 1000000})
+					self.scanTransponders.append({"frequency": tp[1], "system": eDVBFrontendParametersTerrestrial.System_DVB_T2, "bandwidth": tp[2] // 1000000})
 		self.transponders_found = []
 		self.transponders_unique = {}
 		self.onClose.append(self.__onClose)
@@ -179,17 +180,17 @@ class TerrestrialScan(Screen):
 			self.system = self.scanTransponders[self.index]["system"]
 			self.bandwidth = self.scanTransponders[self.index]["bandwidth"]
 			self.frequency = self.scanTransponders[self.index]["frequency"]
-			print "[TerrestrialScan][Search] Scan frequency %d (ch %s)" % (self.frequency, getChannelNumber(self.frequency, self.uhf_vhf))
-			print "[TerrestrialScan][Search] Scan system %d" % self.system
-			print "[TerrestrialScan][Search] Scan bandwidth %d" % self.bandwidth
+			print("[TerrestrialScan][Search] Scan frequency %d (ch %s)" % (self.frequency, getChannelNumber(self.frequency, self.uhf_vhf)))
+			print("[TerrestrialScan][Search] Scan system %d" % self.system)
+			print("[TerrestrialScan][Search] Scan bandwidth %d" % self.bandwidth)
 			self.progresscurrent = self.index
 			self["progress_text"].value = self.progresscurrent
 			self["progress"].setValue(self.progresscurrent)
-			self["action"].setText(_("Tuning %s MHz (ch %s)") % (str(self.frequency/1000000), getChannelNumber(self.frequency, self.uhf_vhf)))
+			self["action"].setText(_("Tuning %s MHz (ch %s)") % (str(self.frequency//1000000), getChannelNumber(self.frequency, self.uhf_vhf)))
 			self["status"].setText((len(self.transponders_unique) == 1 and _("Found %d unique transponder") or _("Found %d unique transponders")) % len(self.transponders_unique))
 			self.index += 1
 			if self.frequency in self.transponders_found or self.system == eDVBFrontendParametersTerrestrial.System_DVB_T2 and self.isT2tuner == False:
-				print "[TerrestrialScan][Search] Skipping T2 search of %s MHz (ch %s)" % (str(self.frequency/1000000), getChannelNumber(self.frequency, self.uhf_vhf))
+				print("[TerrestrialScan][Search] Skipping T2 search of %s MHz (ch %s)" % (str(self.frequency//1000000), getChannelNumber(self.frequency, self.uhf_vhf)))
 				self.search()
 				return
 			self.searchtimer = eTimer()
@@ -209,7 +210,7 @@ class TerrestrialScan(Screen):
 			return nim.isCompatible("DVB-T") and nim.config_mode_dvbt or "nothing"
 
 	def getFrontend(self):
-		print "[TerrestrialScan][getFrontend] searching for available tuner"
+		print("[TerrestrialScan][getFrontend] searching for available tuner")
 		nimList = []
 		if self.selectedNIM < 0: # automatic tuner selection
 			for nim in nimmanager.nim_slots:
@@ -217,12 +218,12 @@ class TerrestrialScan(Screen):
 					nimList.append(nim.slot)
 					self.isT2tuner = True
 			if len(nimList) == 0:
-				print "[TerrestrialScan][getFrontend] No T2 tuner found"
+				print("[TerrestrialScan][getFrontend] No T2 tuner found")
 				for nim in nimmanager.nim_slots:
 					if self.config_mode(nim) not in ("nothing",) and (nim.isCompatible("DVB-T") or (nim.isCompatible("DVB-S") and nim.canBeCompatible("DVB-T"))):
 						nimList.append(nim.slot)
 			if len(nimList) == 0:
-				print "[TerrestrialScan][getFrontend] No terrestrial tuner found"
+				print("[TerrestrialScan][getFrontend] No terrestrial tuner found")
 				self.showError(_('No terrestrial tuner found'))
 				return
 		else: # manual tuner selection, and subsequent iterations
@@ -231,33 +232,33 @@ class TerrestrialScan(Screen):
 				nimList.append(nim.slot)
 				self.isT2tuner = True
 			if len(nimList) == 0:
-				print "[TerrestrialScan][getFrontend] User selected tuner is not T2 compatible"
+				print("[TerrestrialScan][getFrontend] User selected tuner is not T2 compatible")
 				if self.config_mode(nim) not in ("nothing",) and (nim.isCompatible("DVB-T") or (nim.isCompatible("DVB-S") and nim.canBeCompatible("DVB-T"))):
 					nimList.append(nim.slot)
 			if len(nimList) == 0:
-				print "[TerrestrialScan][getFrontend] User selected tuner not configured"
+				print("[TerrestrialScan][getFrontend] User selected tuner not configured")
 				self.showError(_('Selected tuner is not cofigured'))
 				return
 
 		if len(nimList) == 0:
-			print "[TerrestrialScan][getFrontend] No terrestrial tuner found"
+			print("[TerrestrialScan][getFrontend] No terrestrial tuner found")
 			self.showError(_('No terrestrial tuner found'))
 			return
 
 		resmanager = eDVBResourceManager.getInstance()
 		if not resmanager:
-			print "[TerrestrialScan][getFrontend] Cannot retrieve Resource Manager instance"
+			print("[TerrestrialScan][getFrontend] Cannot retrieve Resource Manager instance")
 			self.showError(_('Cannot retrieve Resource Manager instance'))
 			return
 
 		if self.selectedNIM < 0: # automatic tuner selection
-			print "[TerrestrialScan][getFrontend] Choosing NIM"
+			print("[TerrestrialScan][getFrontend] Choosing NIM")
 
 		# stop pip if running
 		if self.session.pipshown:
 			self.session.pipshown = False
 			del self.session.pip
-			print "[TerrestrialScan][getFrontend] Stopping PIP."
+			print("[TerrestrialScan][getFrontend] Stopping PIP.")
 
 		# Find currently playin NIM
 		currentlyPlayingNIM = None
@@ -282,12 +283,12 @@ class TerrestrialScan(Screen):
 				current_slotid = slotid
 			self.rawchannel = resmanager.allocateRawChannel(slotid)
 			if self.rawchannel:
- 				print "[TerrestrialScan][getFrontend] Nim found on slot id %d" % (slotid)
+ 				print("[TerrestrialScan][getFrontend] Nim found on slot id %d" % (slotid))
 				current_slotid = slotid
 				break
 
 		if current_slotid == -1:
-			print "[TerrestrialScan][getFrontend] No valid NIM found"
+			print("[TerrestrialScan][getFrontend] No valid NIM found")
 			self.showError(_('No valid NIM found for terrestrial'))
 			return
 
@@ -295,25 +296,25 @@ class TerrestrialScan(Screen):
 			# if we are here the only possible option is to close the active service
 			if currentlyPlayingNIM in nimList:
 				slotid = currentlyPlayingNIM
-				print "[TerrestrialScan][getFrontend] Nim found on slot id %d but it's busy. Stopping active service" % slotid
+				print("[TerrestrialScan][getFrontend] Nim found on slot id %d but it's busy. Stopping active service" % slotid)
 				self.session.postScanService = self.session.nav.getCurrentlyPlayingServiceReference()
 				self.session.nav.stopService()
 				self.rawchannel = resmanager.allocateRawChannel(slotid)
 				if self.rawchannel:
-					print "[TerrestrialScan][getFrontend] The active service was stopped, and the NIM is now free to use."
+					print("[TerrestrialScan][getFrontend] The active service was stopped, and the NIM is now free to use.")
 					current_slotid = slotid
 
 			if not self.rawchannel:
 				if self.session.nav.RecordTimer.isRecording():
-					print "[TerrestrialScan][getFrontend] Cannot free NIM because a recording is in progress"
+					print("[TerrestrialScan][getFrontend] Cannot free NIM because a recording is in progress")
 					self.showError(_('Cannot free NIM because a recording is in progress'))
 					return
 				else:
-					print "[TerrestrialScan][getFrontend] Cannot get the NIM"
+					print("[TerrestrialScan][getFrontend] Cannot get the NIM")
 					self.showError(_('Cannot get the NIM'))
 					return
 
-		print "[TerrestrialScan][getFrontend] Will wait up to %i seconds for tuner lock." % (self.lockTimeout/10)
+		print("[TerrestrialScan][getFrontend] Will wait up to %i seconds for tuner lock." % (self.lockTimeout//10))
 
 		self.selectedNIM = current_slotid # Remember for next iteration
 
@@ -321,7 +322,7 @@ class TerrestrialScan(Screen):
 
 		self.frontend = self.rawchannel.getFrontend()
 		if not self.frontend:
-			print "[TerrestrialScan][getFrontend] Cannot get frontend"
+			print("[TerrestrialScan][getFrontend] Cannot get frontend")
 			self.showError(_('Cannot get frontend'))
 			return
 
@@ -332,7 +333,7 @@ class TerrestrialScan(Screen):
 
 		self.demuxer_id = self.rawchannel.reserveDemux()
 		if self.demuxer_id < 0:
-			print "[TerrestrialScan][getFrontend] Cannot allocate the demuxer"
+			print("[TerrestrialScan][getFrontend] Cannot allocate the demuxer")
 			self.showError(_('Cannot allocate the demuxer'))
 			return
 
@@ -348,22 +349,22 @@ class TerrestrialScan(Screen):
 		self.frontend.getFrontendStatus(self.dict)
 		if self.dict["tuner_state"] == "TUNING":
 			if self.lockcounter < 1: # only show this once in the log per retune event
-				print "[TerrestrialScan][checkTunerLock] TUNING"
+				print("[TerrestrialScan][checkTunerLock] TUNING")
 		elif self.dict["tuner_state"] == "LOCKED":
-			print "[TerrestrialScan][checkTunerLock] LOCKED"
-			self["action"].setText(_("Reading %s MHz (ch %s)") % (str(self.frequency/1000000), getChannelNumber(self.frequency, self.uhf_vhf)))
+			print("[TerrestrialScan][checkTunerLock] LOCKED")
+			self["action"].setText(_("Reading %s MHz (ch %s)") % (str(self.frequency//1000000), getChannelNumber(self.frequency, self.uhf_vhf)))
 			self.tsidOnidtimer = eTimer()
 			self.tsidOnidtimer.callback.append(self.tsidOnidWait)
 			self.tsidOnidtimer.start(100, 1)
 			return
 		elif self.dict["tuner_state"] in ("LOSTLOCK", "FAILED"):
-			print "[TerrestrialScan][checkTunerLock] TUNING FAILED"
+			print("[TerrestrialScan][checkTunerLock] TUNING FAILED")
 			self.search()
 			return
 
 		self.lockcounter += 1
 		if self.lockcounter > self.lockTimeout:
-			print "[TerrestrialScan][checkTunerLock] Timeout for tuner lock"
+			print("[TerrestrialScan][checkTunerLock] Timeout for tuner lock")
 			self.search()
 			return
 		self.locktimer.start(100, 1)
@@ -371,14 +372,14 @@ class TerrestrialScan(Screen):
 	def tsidOnidWait(self):
 		self.getCurrentTsidOnid()
 		if self.tsid is not None and self.onid is not None:
-			print "[TerrestrialScan][tsidOnidWait] tsid & onid found", self.tsid, self.onid
+			print("[TerrestrialScan][tsidOnidWait] tsid & onid found", self.tsid, self.onid)
 			self.signalQualityCounter = 0
 			self.signalQualitytimer = eTimer()
 			self.signalQualitytimer.callback.append(self.signalQualityWait)
 			self.signalQualitytimer.start(100, 1)
 			return
 
-		print "[TerrestrialScan][tsidOnidWaitABM] tsid & onid wait failed"
+		print("[TerrestrialScan][tsidOnidWaitABM] tsid & onid wait failed")
 		self.search()
 		return
 
@@ -396,7 +397,7 @@ class TerrestrialScan(Screen):
 
 		fd = dvbreader.open(demuxer_device, sdt_pid, sdt_current_table_id, mask, self.selectedNIM)
 		if fd < 0:
-			print "[TerrestrialScan][getCurrentTsidOnid] Cannot open the demuxer"
+			print("[TerrestrialScan][getCurrentTsidOnid] Cannot open the demuxer")
 			return None
 
 		timeout = datetime.datetime.now()
@@ -404,7 +405,7 @@ class TerrestrialScan(Screen):
 
 		while True:
 			if datetime.datetime.now() > timeout:
-				print "[TerrestrialScan][getCurrentTsidOnid] Timed out"
+				print("[TerrestrialScan][getCurrentTsidOnid] Timed out")
 				break
 
 			section = dvbreader.read_sdt(fd, sdt_current_table_id, 0x00)
@@ -417,7 +418,7 @@ class TerrestrialScan(Screen):
 				self.onid = section["header"]["original_network_id"]
 				break
 
-		print "[TerrestrialScan][getCurrentTsidOnid] Read time %.1f seconds." % (time.time() - start)
+		print("[TerrestrialScan][getCurrentTsidOnid] Read time %.1f seconds." % (time.time() - start))
 		dvbreader.close(fd)
 
 	def signalQualityWait(self):
@@ -431,13 +432,13 @@ class TerrestrialScan(Screen):
 				tsidOnidKey = "%x:%x" % (self.tsid, self.onid)
 				if (tsidOnidKey not in self.transponders_unique or self.transponders_unique[tsidOnidKey]["signalQuality"] < signalQuality) and (not self.restrict_to_networkid or self.networkid == self.onid):
 					self.transponders_unique[tsidOnidKey] = found
-				print "[TerrestrialScan][signalQualityWait] transponder details", found
+				print("[TerrestrialScan][signalQualityWait] transponder details", found)
 				self.search()
 				return
 
 		self.signalQualityCounter +=1
 		if self.signalQualityCounter > self.snrTimeout:
-			print "[TerrestrialScan][signalQualityWait] Failed to collect SNR"
+			print("[TerrestrialScan][signalQualityWait] Failed to collect SNR")
 			self.search()
 			return
 		self.signalQualitytimer.start(100, 1)
