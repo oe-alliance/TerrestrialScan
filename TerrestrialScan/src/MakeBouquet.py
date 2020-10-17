@@ -20,9 +20,9 @@ import sys
 import datetime
 import time
 
-from TerrestrialScan import setParams, setParamsFe
+from .TerrestrialScan import setParams, setParamsFe
 
-import dvbreader
+from . import dvbreader
 from TerrestrialScanSkin import downloadBar
 
 class MakeBouquet(Screen):

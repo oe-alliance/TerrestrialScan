@@ -19,8 +19,8 @@ import sys
 import datetime
 import time
 
-import dvbreader
-from TerrestrialScanSkin import downloadBar
+from . import dvbreader
+from .TerrestrialScanSkin import downloadBar
 
 def setParams(frequency, system, bandwidth = 8): # freq is nine digits (474000000)
 	params = eDVBFrontendParametersTerrestrial()
