@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.4.1\n"
 "Last-Translator: Luis A. Martínez <luis.a.martinez@gmail.com>\n"
-"Language: es\n"
+"Language: gl\n"
 
 msgid "- ONID to search"
 msgstr "- ONID a buscar"
@@ -28,22 +28,22 @@ msgid "Band"
 msgstr "Banda"
 
 msgid "Cannot allocate the demuxer"
-msgstr "No se puede encontrar el demuxer"
+msgstr "Non se pode atopar o demuxer"
 
 msgid "Cannot free NIM because a recording is in progress"
-msgstr "No se puede liberar el NIM porque hay una grabación en progreso"
+msgstr "Non se pode liberar o NIM porque hai unha gravación en progreso"
 
 msgid "Cannot get frontend"
-msgstr "No se puede acceder al frontal"
+msgstr "Non se pode acceder ao frontal"
 
 msgid "Cannot get the NIM"
-msgstr "No se puede acceder al NIM"
+msgstr "Non se pode acceder ao NIM"
 
 msgid "Cannot retrieve Resource Manager instance"
-msgstr "No se puede recuperar la instancia de Gestor de Recursos"
+msgstr "Non se pode recuperar a instancia do Xestor de Recursos"
 
 msgid "Clear before scan"
-msgstr "Limpiar antes de escanear"
+msgstr "Limpar antes de escanear"
 
 msgid "Create terrestrial bouquet"
 msgstr "Crear bouquet terrestre"
@@ -52,39 +52,38 @@ msgid ""
 "Enter the original network ID (ONID) of the multiplexes you wish to restrict "
 "the search to. UK terrestrial television normally ONID \"9018\"."
 msgstr ""
-"Introduce el ID original de red (ONID) de los múltiplex a los que quieres "
-"restringir la búsqueda. La televisión terrestre de Reino Unido normalmente "
-"tiene el ONID “9018”."
+"Insire o ID orixinal de rede (ONID) dos múltiplex aos que quieres restrinxir "
+"a busca. A televisión terrestre do Reino Unido normalmente ten o ONID “9018”."
 
 msgid "Exit"
-msgstr "Salir"
+msgstr "Saír"
 
 #, python-format
 msgid "Found %d unique transponder"
 msgid_plural "Found %d unique transponders"
-msgstr[0] "Se encontró %d transpondedor único"
-msgstr[1] "Se encontraron %d transpondedores únicos"
+msgstr[0] "Atopouse %d transpondedor único"
+msgstr[1] "Atopáronse %d transpondedores únicos"
 
 msgid ""
 "If you select \"yes\" all stored terrestrial channels will be deleted before "
 "starting the current search."
 msgstr ""
-"Si eliges “sí” se borrarán todos los canales terrestres antes de comenzar la "
-"búsqueda actual."
+"Se elixes “si” borraranse todas as canles terrestres antes de comezar a "
+"busca actual."
 
 msgid ""
 "If you select \"yes\" and LCNs are found in the NIT, the scan will create a "
 "bouquet of terrestrial channels in LCN order and add it to the bouquet list."
 msgstr ""
-"Si eliges “sí” y se encuentran LCN en el NIT, el escaneo creará un bouquet "
-"de canales terrestes en el orden del LCN y lo añadirá a la lista de bouquets."
+"Se elixes “si” e se atopan LCN no NIT, o escaneo creará un bouquet de canles "
+"terrestes na orde do LCN e o engadirá á lista de bouquets."
 
 msgid ""
 "If you select \"yes\" the scan will only save channels that are not "
 "encrypted; \"no\" will find encrypted and non-encrypted channels."
 msgstr ""
-"Si eliges “sí” el escaneo solo guardará los canales no encriptados; “no” "
-"buscará canales encriptados y no encriptados."
+"Se elixes “si” o escaneo só gardará as canles non encriptadas; “non” buscará "
+"canles encriptadas e non encriptadas."
 
 msgid "MakeBouquet"
 msgstr "CrearBouquet"
@@ -96,47 +95,47 @@ msgid ""
 "Most transmitters in European countries only have TV channels in the UHF "
 "band."
 msgstr ""
-"La mayor parte de los transmisores de los países europeos solo tienen "
-"canales en la banda UHF."
+"A meirande parte dos transmisores dos países europeos só teñen canles na "
+"banda UHF."
 
 msgid "No frequencies to search"
-msgstr "Sin frecuencias que buscar"
+msgstr "Sen frecuencias que buscar"
 
 msgid "No terrestrial tuner found"
-msgstr "No se encontró ningún sintonizador terrestre"
+msgstr "Non se atopou ningún sintonizador terrestre"
 
 msgid "No transponders to read"
-msgstr "No hay transpondedores que leer"
+msgstr "Non hai transpondedores que ler"
 
 msgid "No valid NIM found for terrestrial"
-msgstr "No se encontró un NIM terrestre válido"
+msgstr "Non se atopou un NIM terrestre válido"
 
 msgid "Only free scan"
-msgstr "Solo escaneo libre"
+msgstr "Só escaneo libre"
 
 #, python-format
 msgid "Reading SI tables on %s MHz"
-msgstr "Leyendo tablas SI en %s MHz"
+msgstr "Lendo táboas SI en %s MHz"
 
 #, python-format
 msgid "Reading channel %s"
-msgstr "Leyendo canales %s"
+msgstr "Lendo canles %s"
 
 msgid "Reading streams"
-msgstr "Leyendo transmisiones"
+msgstr "Lendo transmisións"
 
 msgid "Really close without saving settings?"
-msgstr "¿Quieres cerrar sin guardar los ajustes?"
+msgstr "Queres pechar sen gardar os axustes?"
 
 msgid "Restrict search to single ONID"
-msgstr "Restringir la búsqueda a un único ONID"
+msgstr "Restrinxir a busca a un único ONID"
 
 msgid "Scan"
 msgstr "Escanear"
 
 #, python-format
 msgid "Scanning channel %s"
-msgstr "Escaneando canal %s"
+msgstr "Escaneando canle %s"
 
 msgid "Scanning for active transponders"
 msgstr "Buscando transpondedores activos"
@@ -145,25 +144,25 @@ msgid ""
 "Select \"Yes\" to restrict the search to multiplexes that belong to a single "
 "original network ID (ONID). Select \"No\" to search all ONIDs."
 msgstr ""
-"Elige “Sí” para restringir la búsqueda a múltiplex que pertenecen a un único "
-"ID original de red (ONID). Selecciona “No” para buscar en todos los ONID."
+"Elixe “Si” para restrinxir a busca a múltiplex que pertencen a un único ID "
+"orixinal de rede (ONID). Selecciona “Non” para buscar en todos os ONID."
 
 msgid ""
 "Select a tuner that is configured for terrestrial scans. \"Automatic\" will "
 "pick the highest spec available tuner."
 msgstr ""
-"Selecciona un sintonizador que esté configurado para realizar escaneos "
-"terrestres. “Automático” seleccionará el sintonizador con la especificación "
-"más alta."
+"Selecciona un sintonizador que estea configurado para realizar escaneos "
+"terrestres. “Automático” seleccionará o sintonizador coa especificación máis "
+"alta."
 
 msgid "Selected tuner is not cofigured"
-msgstr "El sintonizador no está configurado"
+msgstr "O sintonizador non está configurado"
 
 msgid "Starting scanner"
-msgstr "Comenzando el escaneo"
+msgstr "Comezando o escaneo"
 
 msgid "Starting search..."
-msgstr "Comenzando la búsqueda…"
+msgstr "Comezando a busca…"
 
 #, python-format
 msgid "TSID: %d, ONID: %d"
