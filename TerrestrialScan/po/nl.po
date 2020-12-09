@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: enigma2-oe-alliance-plugins 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 19:14+0200\n"
-"PO-Revision-Date: 2018-07-31 10:37+0200\n"
+"POT-Creation-Date: 2020-10-19 07:39+0000\n"
+"PO-Revision-Date: 2020-12-09 14:55+0100\n"
 "Last-Translator: Rob van der Does <RobvanderDoes@Gmail.com>\n"
 "Language-Team: none\n"
 "Language: nl\n"
@@ -16,16 +16,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.1.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
-msgid "- ONID to search"
-msgstr "- ONID naar zoeken"
+msgid "All"
+msgstr "Alle"
+
+msgid "Australia generic"
+msgstr "Australië algemeen"
 
 msgid "Automatic"
 msgstr "Automatisch"
 
-msgid "Band"
-msgstr "Band"
+msgid "Bandplan"
+msgstr "Frequentiebanden"
 
 msgid "Cannot allocate the demuxer"
 msgstr "Kan de demuxer niet toewijzen"
@@ -42,11 +45,26 @@ msgstr "Kan de NIM niet bereiken"
 msgid "Cannot retrieve Resource Manager instance"
 msgstr "Ontvangen Bronnen Beheer instantie niet mogelijk"
 
+msgid "Channel list ID"
+msgstr "Kanaallijst ID"
+
 msgid "Clear before scan"
 msgstr "Verwijder voor het scannen"
 
+msgid "Country"
+msgstr "Land"
+
+msgid "Create separate radio bouquet"
+msgstr "Creëer apart radioboeket"
+
 msgid "Create terrestrial bouquet"
 msgstr "Creëer terrestrisch boeket"
+
+msgid "Create terrestrial.xml file"
+msgstr "Creëer bestand terrestrial.xml"
+
+msgid "Enter channel list ID used in your area. If you are not sure enter zero."
+msgstr "Geef het kanaallijst-ID in van uw gebied. Als u niet zeker bent, gebruik u een nul."
 
 msgid "Enter the original network ID (ONID) of the multiplexes you wish to restrict the search to. UK terrestrial television normally ONID \"9018\"."
 msgstr "Geef de originele netwerk-ID (ONID) van de multiplexen waartoe u het zoeken wilt beperken. UK terrestrisch gebruik normaal gesproken \"9018\"."
@@ -56,9 +74,14 @@ msgstr "Sluit af"
 
 #, python-format
 msgid "Found %d unique transponder"
-msgid_plural "Found %d unique transponders"
-msgstr[0] "%d unieke transponders gevonden"
-msgstr[1] "Found %d unique transponders"
+msgstr "%d unieke transponders gevonden"
+
+#, python-format
+msgid "Found %d unique transponders"
+msgstr "%d unieke transponders gevonden"
+
+msgid "From XML"
+msgstr "Van XML"
 
 msgid "If you select \"yes\" all stored terrestrial channels will be deleted before starting the current search."
 msgstr "Als u dit kiest, worden alle opgeslagen terristische kanalen verwijderd voordat het zoeken begint."
@@ -66,8 +89,14 @@ msgstr "Als u dit kiest, worden alle opgeslagen terristische kanalen verwijderd 
 msgid "If you select \"yes\" and LCNs are found in the NIT, the scan will create a bouquet of terrestrial channels in LCN order and add it to the bouquet list."
 msgstr "Als u \"Ja\" kiest en er LCN's gevonden worden in de NIT, zal de scan een boeket creëren van de kanalen in de volgorde van de NIT en dat toevoegen aan de bestaande boeketten."
 
+msgid "If you select \"yes\" and radio services are fond these will be place in a separate bouquet. Otherwise TV and radio services will be placed in a combined bouquet."
+msgstr "Als u dit kiest zullen gevonden radiokanalen in een apart boeket geplaatst worden. Anders worden TV- en radiokanalen in hetzelfde boeket geplaatst."
+
 msgid "If you select \"yes\" the scan will only save channels that are not encrypted; \"no\" will find encrypted and non-encrypted channels."
 msgstr "Als u \"'ja\" kiest, zullen alleen kanalen worden opgeslagen die niet gecodeerd zijn; bij \"nee\" worden alle kanalen opgeslagen."
+
+msgid "LCN Descriptor"
+msgstr "LCN-descriptor"
 
 msgid "MakeBouquet"
 msgstr "Maak  boeket"
@@ -75,8 +104,8 @@ msgstr "Maak  boeket"
 msgid "Making bouquet..."
 msgstr "Maakt boeket..."
 
-msgid "Most transmitters in European countries only have TV channels in the UHF band."
-msgstr "De meeste uitzendingen in Europa vinden plaats in de UHF-band."
+msgid "Most transmitters in European countries only have TV channels in the UHF band. Select \"From XML\" to access bandplans that are preloaded on the device."
+msgstr "De meeste zenders in Europese landen hebben alleen Tv-kanalen in de UHF-band. Kies 'Van XML' om de frequentiebanden te zien die vooraf op uw ontvanger zijn ingesteld."
 
 msgid "No frequencies to search"
 msgstr "Geen frequenties om te zoeken"
@@ -90,16 +119,22 @@ msgstr "Geen transponders om te lezen"
 msgid "No valid NIM found for terrestrial"
 msgstr "Geen geldige NIM gevonden voor terrestrisch"
 
+msgid "ONID to search"
+msgstr "ONID naar zoeken"
+
 msgid "Only free scan"
 msgstr "Alleen vrije kanalen"
+
+msgid "Period of time to wait for the tuner to stabalise before taking a signal quality reading. 2 seconds is good for most hardware but some may require longer."
+msgstr "Een tijdsbestek van 2 sec is voor de meeste tuners voldoende om goed op het signaal af te stemmen, maar sommige apparatuur heeft meer tijd nodig."
+
+#, python-format
+msgid "Reading %s MHz (ch %s)"
+msgstr "Leest %s MHz (kan. %s)"
 
 #, python-format
 msgid "Reading SI tables on %s MHz"
 msgstr "Leest SI-tabellen op %s MHz"
-
-#, python-format
-msgid "Reading channel %s"
-msgstr "Leest kanaal %s"
 
 msgid "Reading streams"
 msgstr "Leest kanalen"
@@ -107,15 +142,14 @@ msgstr "Leest kanalen"
 msgid "Really close without saving settings?"
 msgstr "Echt afsluiten zonder op te slaan?"
 
+msgid "Region"
+msgstr "Regio"
+
 msgid "Restrict search to single ONID"
 msgstr "Beperk tot enkele ONID"
 
 msgid "Scan"
 msgstr "Scan"
-
-#, python-format
-msgid "Scanning channel %s"
-msgstr "Scant kanaal %s"
 
 msgid "Scanning for active transponders"
 msgstr "Scant actieve transponders"
@@ -123,11 +157,26 @@ msgstr "Scant actieve transponders"
 msgid "Select \"Yes\" to restrict the search to multiplexes that belong to a single original network ID (ONID). Select \"No\" to search all ONIDs."
 msgstr "Kies \"Ja\" om het zoeken te beperken tot multiplexen die behoren tot de originele netwerk-ID (ONID). Kies \"Nee\" om alle ONIDs te zoeken."
 
+msgid "Select \"yes\" to create a custom terrestrial.xml file and install it in /etc/enigma2 for system scans to use."
+msgstr "Kies voor 'ja' om uw eigen terrestrial.xml bestand te maken en plaats het in /etc/enigma2 om voor scans te kunnen gebruiken."
+
 msgid "Select a tuner that is configured for terrestrial scans. \"Automatic\" will pick the highest spec available tuner."
 msgstr "Kies een tuner die is geconfigureerd voor terrestrische scans. \"Automatisch\" zal de tuner met de beste specificaties gebruiken."
 
+msgid "Select the LCN descriptor used in your area. 0x83 is the default DVB standard descriptor. 0x87 is used in some Scandinavian countries."
+msgstr "Kies de LCN-descriptor die in uw gebied gebruikt wordt. 0x83 is de standaard DVB-descriptor. 0x87 wordt in enkele Scandinavische landen gebruikt."
+
+msgid "Select your country. If not available select 'all'."
+msgstr "Kies uw land. Indien niet beschikbaar kiest u 'alle'."
+
+msgid "Select your region. If not available change 'Country' to 'all' and select one of the default alternatives."
+msgstr "Kies uw gebied. Indien niet beschikbaar verandert u 'Land' in 'alle' en kiest u één van de alternatieven."
+
 msgid "Selected tuner is not cofigured"
 msgstr "De gekozen tuner is niet geconfigureerd"
+
+msgid "Signal quality stabisation time (secs)"
+msgstr "Signaalkwaliteitstabiliseringstijd (sec)"
 
 msgid "Starting scanner"
 msgstr "Start scanner"
@@ -155,8 +204,27 @@ msgstr "Tuner"
 msgid "Tuning %s MHz"
 msgstr "Tunet %s MHz"
 
+#, python-format
+msgid "Tuning %s MHz (ch %s)"
+msgstr "Tuning %s MHz (kan. %s)"
+
 msgid "UHF Europe"
 msgstr "UHF Europa"
 
 msgid "UHF/VHF Europe"
 msgstr "UHF/VHF Europa"
+
+#~ msgid "- ONID to search"
+#~ msgstr "- ONID naar zoeken"
+
+#~ msgid "Band"
+#~ msgstr "Band"
+
+#~ msgid "Most transmitters in European countries only have TV channels in the UHF band."
+#~ msgstr "De meeste uitzendingen in Europa vinden plaats in de UHF-band."
+
+#~ msgid "Reading channel %s"
+#~ msgstr "Leest kanaal %s"
+
+#~ msgid "Scanning channel %s"
+#~ msgstr "Scant kanaal %s"
