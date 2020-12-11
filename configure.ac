@@ -31,7 +31,6 @@ AX_PTHREAD
 AC_CONFIG_FILES([
 Makefile
 TerrestrialScan/Makefile
-TerrestrialScan/images/Makefile
 TerrestrialScan/lib/Makefile
 TerrestrialScan/po/Makefile
 TerrestrialScan/src/Makefile
