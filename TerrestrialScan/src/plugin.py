@@ -55,7 +55,6 @@ class TerrestrialScanScreen(ConfigListScreen, Screen):
 
 		self["actions2"] = ActionMap(["SetupActions"],
 		{
-			"ok": self.keyGo,
 			"menu": self.keyCancel,
 			"cancel": self.keyCancel,
 			"save": self.keyGo,
