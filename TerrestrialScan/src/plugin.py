@@ -127,7 +127,7 @@ class TerrestrialScanScreen(ConfigListScreen, Screen):
 			terrestrialcountrycodelist = nimmanager.getTerrestrialsCountrycodeList()
 			terrestrialcountrycode = nimmanager.getTerrestrialCountrycode(slotid) # number of first enabled terrestrial tuner if automatic is selected.
 			default = terrestrialcountrycode in terrestrialcountrycodelist and terrestrialcountrycode or None
-			choices = [("all", _("All"))]+sorted([(x, self.countrycodeToCountry(x)) for x in terrestrialcountrycodelist], key=lambda listItem: listItem[1])
+			choices = [("all", _("All"))] + sorted([(x, self.countrycodeToCountry(x)) for x in terrestrialcountrycodelist], key=lambda listItem: listItem[1])
 			self.terrestrialCountries = ConfigSelection(default=default, choices=choices)
 			self.terrestrialCountriesEntry = getConfigListEntry(self.indent + _("Country"), self.terrestrialCountries, _("Select your country. If not available select 'all'."))
 
@@ -197,7 +197,7 @@ class TerrestrialScanScreen(ConfigListScreen, Screen):
 
 	def newConfig(self):
 		cur = self["config"].getCurrent()
-		if len(cur)>1:
+		if len(cur) > 1:
 			if cur[1] in (config.plugins.TerrestrialScan.uhf_vhf, getattr(self, "terrestrialCountries", None), config.plugins.TerrestrialScan.networkid_bool, config.plugins.TerrestrialScan.makebouquet, config.plugins.TerrestrialScan.lcndescriptor):
 				self.createSetup()
 
