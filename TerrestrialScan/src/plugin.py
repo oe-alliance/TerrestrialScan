@@ -23,25 +23,25 @@ from .MakeBouquet import MakeBouquet
 import os
 
 config.plugins.TerrestrialScan = ConfigSubsection()
-config.plugins.TerrestrialScan.networkid_bool = ConfigYesNo(default = False)
-config.plugins.TerrestrialScan.networkid = ConfigInteger(default = 0, limits = (0, 65535))
-config.plugins.TerrestrialScan.clearallservices = ConfigYesNo(default = True)
-config.plugins.TerrestrialScan.onlyfree = ConfigYesNo(default = True)
+config.plugins.TerrestrialScan.networkid_bool = ConfigYesNo(default=False)
+config.plugins.TerrestrialScan.networkid = ConfigInteger(default=0, limits=(0, 65535))
+config.plugins.TerrestrialScan.clearallservices = ConfigYesNo(default=True)
+config.plugins.TerrestrialScan.onlyfree = ConfigYesNo(default=True)
 uhf_vhf_choices = [
 			('uhf', _("UHF Europe")),
 			('uhf_vhf', _("UHF/VHF Europe")),
 			('australia', _("Australia generic"))]
 if nimmanager.getTerrestrialsList(): # check transponders are available from terrestrial.xml
 	uhf_vhf_choices.append(('xml', _("From XML")))
-config.plugins.TerrestrialScan.uhf_vhf = ConfigSelection(default = 'uhf', choices = uhf_vhf_choices)
-config.plugins.TerrestrialScan.makebouquet = ConfigYesNo(default = True)
-config.plugins.TerrestrialScan.makeradiobouquet = ConfigYesNo(default = False)
-config.plugins.TerrestrialScan.makexmlfile = ConfigYesNo(default = False)
-config.plugins.TerrestrialScan.lcndescriptor = ConfigSelection(default = 0x83, choices = [
+config.plugins.TerrestrialScan.uhf_vhf = ConfigSelection(default='uhf', choices=uhf_vhf_choices)
+config.plugins.TerrestrialScan.makebouquet = ConfigYesNo(default=True)
+config.plugins.TerrestrialScan.makeradiobouquet = ConfigYesNo(default=False)
+config.plugins.TerrestrialScan.makexmlfile = ConfigYesNo(default=False)
+config.plugins.TerrestrialScan.lcndescriptor = ConfigSelection(default=0x83, choices=[
 			(0x83, "0x83"),
 			(0x87, "0x87")])
-config.plugins.TerrestrialScan.channel_list_id = ConfigInteger(default = 0, limits = (0, 65535))
-config.plugins.TerrestrialScan.stabliseTime = ConfigSelection(default = 2, choices = [(i, "%d" % i) for i in range(2, 11)])
+config.plugins.TerrestrialScan.channel_list_id = ConfigInteger(default=0, limits=(0, 65535))
+config.plugins.TerrestrialScan.stabliseTime = ConfigSelection(default=2, choices=[(i, "%d" % i) for i in range(2, 11)])
 
 class TerrestrialScanScreen(ConfigListScreen, Screen):
 	def __init__(self, session):
@@ -51,7 +51,7 @@ class TerrestrialScanScreen(ConfigListScreen, Screen):
 		self.skinName = ["TerrestrialScanScreen", "Setup"]
 		self.onChangedEntry = []
 		self.session = session
-		ConfigListScreen.__init__(self, [], session = session, on_change = self.changedEntry)
+		ConfigListScreen.__init__(self, [], session=session, on_change=self.changedEntry)
 
 		self["actions2"] = ActionMap(["SetupActions"],
 		{
@@ -78,7 +78,7 @@ class TerrestrialScanScreen(ConfigListScreen, Screen):
 		nim_list.append((-1, _("Automatic")))
 		for x in self.dvbt_capable_nims:
 			nim_list.append((nimmanager.nim_slots[x].slot, nimmanager.nim_slots[x].friendly_full_description))
-		self.scan_nims = ConfigSelection(choices = nim_list)
+		self.scan_nims = ConfigSelection(choices=nim_list)
 
 		self.createSetup()
 
@@ -128,7 +128,7 @@ class TerrestrialScanScreen(ConfigListScreen, Screen):
 			terrestrialcountrycode = nimmanager.getTerrestrialCountrycode(slotid) # number of first enabled terrestrial tuner if automatic is selected.
 			default = terrestrialcountrycode in terrestrialcountrycodelist and terrestrialcountrycode or None
 			choices = [("all", _("All"))]+sorted([(x, self.countrycodeToCountry(x)) for x in terrestrialcountrycodelist], key=lambda listItem: listItem[1])
-			self.terrestrialCountries = ConfigSelection(default = default, choices = choices)
+			self.terrestrialCountries = ConfigSelection(default=default, choices=choices)
 			self.terrestrialCountriesEntry = getConfigListEntry(self.indent + _("Country"), self.terrestrialCountries, _("Select your country. If not available select 'all'."))
 
 		# region
@@ -137,7 +137,7 @@ class TerrestrialScanScreen(ConfigListScreen, Screen):
 		else:
 			terrstrialNames = sorted([x[0] for x in nimmanager.getTerrestrialsByCountrycode(self.terrestrialCountries.value)])
 		default = nimConfig.terrestrial.value in terrstrialNames and nimConfig.terrestrial.value or None
-		self.terrestrialRegions = ConfigSelection(default = default, choices = terrstrialNames)
+		self.terrestrialRegions = ConfigSelection(default=default, choices=terrstrialNames)
 		self.terrestrialRegionsEntry = getConfigListEntry(self.indent + _("Region"), self.terrestrialRegions, _("Select your region. If not available change 'Country' to 'all' and select one of the default alternatives."))
 
 	def countrycodeToCountry(self, cc):
@@ -272,7 +272,7 @@ def TerrestrialScanCallback(close, answer):
 def Plugins(**kwargs):
 	pList = []
 	if nimmanager.hasNimType("DVB-T"):
-		pList.append( PluginDescriptor(name=_("Terrestrial Scan"), description="For scanning terrestrial tv", where = PluginDescriptor.WHERE_MENU, needsRestart = False, fnc=TerrestrialScanStart) )
+		pList.append( PluginDescriptor(name=_("Terrestrial Scan"), description="For scanning terrestrial tv", where=PluginDescriptor.WHERE_MENU, needsRestart=False, fnc=TerrestrialScanStart) )
 	else:
 		print("[TerrestrialScan] No DVB-T tuner available so don't load")
 	return pList
