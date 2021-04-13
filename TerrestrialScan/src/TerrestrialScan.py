@@ -22,7 +22,7 @@ import time
 from . import dvbreader
 from .TerrestrialScanSkin import downloadBar
 
-def setParams(frequency, system, bandwidth = 8): # freq is nine digits (474000000)
+def setParams(frequency, system, bandwidth=8): # freq is nine digits (474000000)
 	params = eDVBFrontendParametersTerrestrial()
 	params.frequency = frequency
 	params.bandwidth = bandwidth * 1000000
@@ -41,7 +41,7 @@ def setParamsFe(params):
 	params_fe.setDVBT(params)
 	return params_fe
 
-def channel2freq(channel, bandwidth = 8): # Europe channels
+def channel2freq(channel, bandwidth=8): # Europe channels
 	if 4 < channel < 13: # Band III
 		return (((177 + (bandwidth * (channel - 5))) * 1000000) + 500000)
 	elif 20 < channel < 70: # Bands IV,V
@@ -70,7 +70,7 @@ def getChannelNumber(frequency, descr):
 class TerrestrialScan(Screen):
 	skin = downloadBar
 
-	def __init__(self, session, args = 0):
+	def __init__(self, session, args=0):
 		print("[TerrestrialScan][__init__] Starting...")
 		print("[TerrestrialScan][__init__] args", args)
 		self.session = session
@@ -110,7 +110,7 @@ class TerrestrialScan(Screen):
 				self.region = args["region"]
 		self.isT2tuner = False
 		self.frontend = None
-		self["Frontend"] = FrontendStatus(frontend_source = lambda : self.frontend, update_interval = 100)
+		self["Frontend"] = FrontendStatus(frontend_source=lambda : self.frontend, update_interval=100)
 		self.rawchannel = None
 		self.session.postScanService = self.session.nav.getCurrentlyPlayingServiceOrGroup()
 		self.index = 0
@@ -383,7 +383,7 @@ class TerrestrialScan(Screen):
 		self.search()
 		return
 
-	def getCurrentTsidOnid(self, from_retune = False):
+	def getCurrentTsidOnid(self, from_retune=False):
 		adapter = 0
 		demuxer_device = "/dev/dvb/adapter%d/demux%d" % (adapter, self.demuxer_id)
 		start = time.time() # for debug info
