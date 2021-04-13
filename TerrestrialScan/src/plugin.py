@@ -97,7 +97,7 @@ class TerrestrialScanScreen(ConfigListScreen, Screen):
 			self.setTerrestrialLocationEntries()
 			setup_list.append(self.terrestrialCountriesEntry)
 			setup_list.append(self.terrestrialRegionsEntry)
-		
+
 		setup_list.append(getConfigListEntry(_("Clear before scan"), config.plugins.TerrestrialScan.clearallservices, _('If you select "yes" all stored terrestrial channels will be deleted before starting the current search.')))
 		setup_list.append(getConfigListEntry(_("Only free scan"), config.plugins.TerrestrialScan.onlyfree, _('If you select "yes" the scan will only save channels that are not encrypted; "no" will find encrypted and non-encrypted channels.')))
 		setup_list.append(getConfigListEntry(_('Restrict search to single ONID'), config.plugins.TerrestrialScan.networkid_bool, _('Select "Yes" to restrict the search to multiplexes that belong to a single original network ID (ONID). Select "No" to search all ONIDs.')))
