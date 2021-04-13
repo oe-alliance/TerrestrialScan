@@ -123,18 +123,18 @@ class TerrestrialScan(Screen):
 		self.scanTransponders = []
 		if self.uhf_vhf == "uhf_vhf":
 			bandwidth = 7
-			for a in range(5,13):
+			for a in range(5, 13):
 				for b in (eDVBFrontendParametersTerrestrial.System_DVB_T, eDVBFrontendParametersTerrestrial.System_DVB_T2): # system
 					self.scanTransponders.append({"frequency": channel2freq(a, bandwidth), "system": b, "bandwidth": bandwidth})
 		if self.uhf_vhf in ("uhf", "uhf_vhf"):
 			bandwidth = 8
-			for a in range(21,70):
+			for a in range(21, 70):
 				for b in (eDVBFrontendParametersTerrestrial.System_DVB_T, eDVBFrontendParametersTerrestrial.System_DVB_T2): # system
 					self.scanTransponders.append({"frequency": channel2freq(a, bandwidth), "system": b, "bandwidth": bandwidth})
 		if self.uhf_vhf == "australia":
 			bandwidth = 7
 			base_frequency = 177500000
-			for a in range(0,8) + range(50,74):
+			for a in range(0, 8) + range(50, 74):
 				freq = (base_frequency + (a * bandwidth * 1000000 + (2000000 if a > 8 else 0)))
 				self.scanTransponders.append({"frequency": freq, "system": eDVBFrontendParametersTerrestrial.System_DVB_T, "bandwidth": bandwidth})
 		if self.uhf_vhf == "xml":
@@ -427,7 +427,7 @@ class TerrestrialScan(Screen):
 			time.sleep(self.stabliseTime) # allow extra time to get a stable reading
 			signalQuality = self.frontend.readFrontendData(iFrontendInformation.signalQuality)
 			if signalQuality > 0:
-				found = {"frequency": self.frequency, "tsid": self.tsid, "onid": self.onid, "system": self.system, "bandwidth": self.bandwidth,"signalQuality": signalQuality}
+				found = {"frequency": self.frequency, "tsid": self.tsid, "onid": self.onid, "system": self.system, "bandwidth": self.bandwidth, "signalQuality": signalQuality}
 				self.transponders_found.append(self.frequency)
 				tsidOnidKey = "%x:%x" % (self.tsid, self.onid)
 				if (tsidOnidKey not in self.transponders_unique or self.transponders_unique[tsidOnidKey]["signalQuality"] < signalQuality) and (not self.restrict_to_networkid or self.networkid == self.onid):
