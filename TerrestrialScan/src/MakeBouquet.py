@@ -410,7 +410,7 @@ class MakeBouquet(Screen):
 
 	def solveDuplicates(self):
 		if config.plugins.TerrestrialScan.uhf_vhf.value == "australia":
-			vacant = [i for i in range(350,400) if i not in self.services_dict]
+			vacant = [i for i in range(350, 400) if i not in self.services_dict]
 			for duplicate in self.duplicates:
 				if not vacant: # not slots available
 					break
@@ -418,7 +418,7 @@ class MakeBouquet(Screen):
 
 	def iterateServicesBySNR(self, servicesDict):
 		# return a key list of services sorted by signal quality descending
-		sort_list = [(k,s["signalQuality"]) for k,s in servicesDict.items()]
+		sort_list = [(k, s["signalQuality"]) for k, s in servicesDict.items()]
 		return [x[0] for x in sorted(sort_list, key=lambda listItem: listItem[1], reverse=True)]
 
 	def readBouquetIndex(self):
