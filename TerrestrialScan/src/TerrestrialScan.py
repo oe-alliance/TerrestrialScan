@@ -26,7 +26,7 @@ from .TerrestrialScanSkin import downloadBar
 def setParams(frequency, system, bandwidth=8): # freq is nine digits (474000000)
 	params = eDVBFrontendParametersTerrestrial()
 	params.frequency = frequency
-	params.bandwidth = bandwidth * 1000000
+	params.bandwidth = terrestrialTransponderconvBandwidth_P(bandwidth * 1000000)
 	params.code_rate_hp = eDVBFrontendParametersTerrestrial.FEC_Auto
 	params.code_rate_lp = eDVBFrontendParametersTerrestrial.FEC_Auto
 	params.inversion = eDVBFrontendParametersTerrestrial.Inversion_Unknown
@@ -43,6 +43,16 @@ def setParamsFe(params):
 	params_fe.setDVBT(params)
 	return params_fe
 
+def terrestrialTransponderconvBandwidth_P(_bandWidth):
+	bandWidth = {
+		8000000 : eDVBFrontendParametersTerrestrial.Bandwidth_8MHz,
+		7000000 : eDVBFrontendParametersTerrestrial.Bandwidth_7MHz,
+		6000000 : eDVBFrontendParametersTerrestrial.Bandwidth_6MHz,
+		5000000 : eDVBFrontendParametersTerrestrial.Bandwidth_5MHz,
+		1712000 : eDVBFrontendParametersTerrestrial.Bandwidth_1_712MHz,
+		10000000 : eDVBFrontendParametersTerrestrial.Bandwidth_10MHz,
+	}.get(_bandWidth, eDVBFrontendParametersTerrestrial.Bandwidth_8MHz)
+	return bandWidth
 
 def channel2freq(channel, bandwidth=8): # Europe channels
 	if 4 < channel < 13: # Band III
