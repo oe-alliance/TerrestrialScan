@@ -110,6 +110,7 @@ class TerrestrialScan(Screen):
 		self.restrict_to_networkid = False
 		self.stabliseTime = 2 # time in seconds for tuner to stablise on tune before taking a signal quality reading
 		self.region = None
+		self.skipT2 = False
 		if args:
 			if "feid" in args:
 				self.selectedNIM = args["feid"]
@@ -123,6 +124,8 @@ class TerrestrialScan(Screen):
 				self.stabliseTime = args["stabliseTime"]
 			if "region" in args:
 				self.region = args["region"]
+			if "skipT2" in args:
+				self.skipT2 = args["skipT2"]
 		self.isT2tuner = False
 		self.frontend = None
 		self["Frontend"] = FrontendStatus(frontend_source=lambda: self.frontend, update_interval=100)
@@ -136,15 +139,16 @@ class TerrestrialScan(Screen):
 		self.snrTimeout = 100 	# 100ms for tick - 10 sec
 		self.bandwidth = 8 # MHz
 		self.scanTransponders = []
+		systems = (eDVBFrontendParametersTerrestrial.System_DVB_T,) if self.skipT2 else (eDVBFrontendParametersTerrestrial.System_DVB_T, eDVBFrontendParametersTerrestrial.System_DVB_T2)
 		if self.uhf_vhf == "uhf_vhf":
 			bandwidth = 7
 			for a in range(5, 13):
-				for b in (eDVBFrontendParametersTerrestrial.System_DVB_T, eDVBFrontendParametersTerrestrial.System_DVB_T2): # system
+				for b in systems: # system
 					self.scanTransponders.append({"frequency": channel2freq(a, bandwidth), "system": b, "bandwidth": bandwidth})
 		if self.uhf_vhf in ("uhf", "uhf_vhf"):
 			bandwidth = 8
 			for a in range(21, 70):
-				for b in (eDVBFrontendParametersTerrestrial.System_DVB_T, eDVBFrontendParametersTerrestrial.System_DVB_T2): # system
+				for b in systems: # system
 					self.scanTransponders.append({"frequency": channel2freq(a, bandwidth), "system": b, "bandwidth": bandwidth})
 		if self.uhf_vhf == "australia":
 			bandwidth = 7

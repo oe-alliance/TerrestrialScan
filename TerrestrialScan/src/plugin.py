@@ -27,6 +27,7 @@ config.plugins.TerrestrialScan.networkid_bool = ConfigYesNo(default=False)
 config.plugins.TerrestrialScan.networkid = ConfigInteger(default=0, limits=(0, 65535))
 config.plugins.TerrestrialScan.clearallservices = ConfigYesNo(default=True)
 config.plugins.TerrestrialScan.onlyfree = ConfigYesNo(default=True)
+config.plugins.TerrestrialScan.skipT2 = ConfigYesNo(default=False)
 uhf_vhf_choices = [
 			('uhf', _("UHF Europe")),
 			('uhf_vhf', _("UHF/VHF Europe")),
@@ -99,6 +100,8 @@ class TerrestrialScanScreen(ConfigListScreen, Screen):
 			setup_list.append(self.terrestrialRegionsEntry)
 
 		setup_list.append(getConfigListEntry(_("Clear before scan"), config.plugins.TerrestrialScan.clearallservices, _('If you select "yes" all stored terrestrial channels will be deleted before starting the current search.')))
+		if config.plugins.TerrestrialScan.uhf_vhf.value not in ("australia",):
+			setup_list.append(getConfigListEntry(_("Skip T2"), config.plugins.TerrestrialScan.skipT2, _('If you know for sure there are no T2 multiplexes in your area select yes. This will speed up scan time.')))
 		setup_list.append(getConfigListEntry(_("Only free scan"), config.plugins.TerrestrialScan.onlyfree, _('If you select "yes" the scan will only save channels that are not encrypted; "no" will find encrypted and non-encrypted channels.')))
 		setup_list.append(getConfigListEntry(_('Restrict search to single ONID'), config.plugins.TerrestrialScan.networkid_bool, _('Select "Yes" to restrict the search to multiplexes that belong to a single original network ID (ONID). Select "No" to search all ONIDs.')))
 
@@ -177,7 +180,7 @@ class TerrestrialScanScreen(ConfigListScreen, Screen):
 		self.startScan()
 
 	def startScan(self):
-		args = {"feid": int(self.scan_nims.value), "uhf_vhf": config.plugins.TerrestrialScan.uhf_vhf.value, "networkid": int(config.plugins.TerrestrialScan.networkid.value), "restrict_to_networkid": config.plugins.TerrestrialScan.networkid_bool.value, "stabliseTime": config.plugins.TerrestrialScan.stabliseTime.value}
+		args = {"feid": int(self.scan_nims.value), "uhf_vhf": config.plugins.TerrestrialScan.uhf_vhf.value, "networkid": int(config.plugins.TerrestrialScan.networkid.value), "restrict_to_networkid": config.plugins.TerrestrialScan.networkid_bool.value, "stabliseTime": config.plugins.TerrestrialScan.stabliseTime.value, "skipT2": config.plugins.TerrestrialScan.skipT2.value}
 		if config.plugins.TerrestrialScan.uhf_vhf.value == "xml":
 			args["region"] = self.terrestrialRegions.value
 		self.session.openWithCallback(self.terrestrialScanCallback, TerrestrialScan, args)
