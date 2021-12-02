@@ -26,7 +26,8 @@ from .TerrestrialScanSkin import downloadBar
 def setParams(frequency, system, bandwidth=8): # freq is nine digits (474000000)
 	params = eDVBFrontendParametersTerrestrial()
 	params.frequency = frequency
-	params.bandwidth = terrestrialTransponderconvBandwidth_P(bandwidth * 1000000)
+#	params.bandwidth = terrestrialTransponderconvBandwidth_P(bandwidth * 1000000)
+	params.bandwidth = bandwidth * 1000000 # for testing: feed in bandwidth value in hz as dpeddi reports failure to tune on some hardware with the previous code
 	params.code_rate_hp = eDVBFrontendParametersTerrestrial.FEC_Auto
 	params.code_rate_lp = eDVBFrontendParametersTerrestrial.FEC_Auto
 	params.inversion = eDVBFrontendParametersTerrestrial.Inversion_Unknown
