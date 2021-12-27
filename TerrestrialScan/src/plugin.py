@@ -262,7 +262,7 @@ class TerrestrialScanScreen(ConfigListScreen, Screen):
 
 
 def TerrestrialScanStart(menuid, **kwargs):
-	if menuid == "scan":
+	if menuid == "scan" and nimmanager.getEnabledNimListOfType("DVB-T"):
 		return [(_("Terrestrial Scan"), TerrestrialScanMain, "TerrestrialScanScreen", 75, True)]
 	return []
 
