@@ -140,7 +140,12 @@ class TerrestrialScanScreen(ConfigListScreen, Screen):
 			terrstrialNames = [x[0] for x in sorted(sorted(nimmanager.getTerrestrialsList(), key=lambda listItem: listItem[0]), key=lambda listItem: self.countrycodeToCountry(listItem[2]))]
 		else:
 			terrstrialNames = sorted([x[0] for x in nimmanager.getTerrestrialsByCountrycode(self.terrestrialCountries.value)])
-		default = nimConfig.terrestrial.value in terrstrialNames and nimConfig.terrestrial.value or None
+		try:
+			NConfig = nimConfig.terrestrial.value
+		except:
+			NConfig = nimConfig.dvbt.terrestrial.value
+
+		default = NConfig in terrstrialNames and NConfig or None
 		self.terrestrialRegions = ConfigSelection(default=default, choices=terrstrialNames)
 		self.terrestrialRegionsEntry = getConfigListEntry(self.indent + _("Region"), self.terrestrialRegions, _("Select your region. If not available change 'Country' to 'all' and select one of the default alternatives."))
 
