@@ -13,6 +13,24 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.4.2\n"
 
+msgid "Select your country. If not available select 'all'."
+msgstr "Seleziona il tuo paese. Se non disponibile selezionare 'tutto'."
+
+msgid "Country"
+msgstr "Nazione"
+
+msgid "Region"
+msgstr "Regione (se selezionabile)"
+
+msgid ""
+"Select your region. If not available change 'Country' to 'all' and select one of the default "
+"alternatives."
+msgstr ""
+"Scegli la tua regione (se selezionabile). Se non vi sono differenze regionali, vedrai la nazione. Puoi anche cambiare la 'nazione' in 'Tutte' se non c'è l'alternativa che cerchi."
+
+msgid "All"
+msgstr "Tutte"
+
 msgid "Terrestrial Scan"
 msgstr "Scansione terrestre"
 
@@ -88,7 +106,7 @@ msgid ""
 "in LCN order and add it to the bouquet list."
 msgstr ""
 "Se selezionate SI e verranno trovati canali dotati di numerazione LCN, verrà creato un bouquet di canali terrestri" 
-"nell'ordine LCN e sarà aggiunto agli altri bouquet."
+" nell'ordine LCN e sarà aggiunto agli altri bouquet."
 
 msgid "Create separate radio bouquet"
 msgstr "Creare un bouquet di canali radio separato"
@@ -126,8 +144,8 @@ msgid ""
 "Period of time to wait for the tuner to stabalise before taking a signal quality reading. "
 "2 seconds is good for most hardware but some may require longer."
 msgstr ""
-"Tempo di attesa perché il tuner si stabilizzi su un segnale."
-"DUE secondi è un valore adeguato per molti dispositivi ma altri possono necessitare di più tempo."
+"Tempo di attesa perché il tuner si stabilizzi su un segnale:"
+" DUE secondi è un valore adeguato per molti dispositivi ma altri possono necessitare di più tempo."
 
 msgid "Cannot free NIM because a recording is in progress"
 msgstr "Non posso usare il tuner perché è in corso una registrazione"
