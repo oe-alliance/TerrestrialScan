@@ -1,14 +1,9 @@
-# Portuguese translations for enigma2-oe-alliance-plugins package.
-# Copyright (C) 2016 THE enigma2-oe-alliance-plugins'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the enigma2-oe-alliance-plugins package.
-# Automatically generated, 2016.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: enigma2-oe-alliance-plugins 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 19:14+0200\n"
-"PO-Revision-Date: 2016-06-02 19:21+0200\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2022-02-22 12:49+0000\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: pt\n"
@@ -16,146 +11,124 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "- ONID to search"
-msgstr ""
+"X-Generator: Poedit 3.0.1\n"
 
 msgid "Automatic"
-msgstr ""
-
-msgid "Band"
-msgstr ""
-
-msgid "Cannot allocate the demuxer"
-msgstr ""
+msgstr "Automatico"
 
 msgid "Cannot free NIM because a recording is in progress"
-msgstr ""
+msgstr "Não é possível libtertar o NIM porque uma gravação está em progresso"
 
 msgid "Cannot get frontend"
-msgstr ""
+msgstr "Não pode obter o frontend"
 
 msgid "Cannot get the NIM"
-msgstr ""
+msgstr "Não pode obter o NIM"
 
 msgid "Cannot retrieve Resource Manager instance"
-msgstr ""
+msgstr "Não é possível recuperar a instância do Gerenciador de Recursos"
 
 msgid "Clear before scan"
-msgstr ""
-
-msgid "Create terrestrial bouquet"
-msgstr ""
-
-msgid "Enter the original network ID (ONID) of the multiplexes you wish to restrict the search to. UK terrestrial television normally ONID \"9018\"."
-msgstr ""
+msgstr "Limpar antes da busca"
 
 msgid "Exit"
-msgstr ""
-
-#, python-format
-msgid "Found %d unique transponder"
-msgid_plural "Found %d unique transponders"
-msgstr[0] ""
-msgstr[1] ""
+msgstr "Sair"
 
 msgid "If you select \"yes\" all stored terrestrial channels will be deleted before starting the current search."
-msgstr ""
-
-msgid "If you select \"yes\" and LCNs are found in the NIT, the scan will create a bouquet of terrestrial channels in LCN order and add it to the bouquet list."
-msgstr ""
+msgstr "Ao selecionar \"Sim\" todos os canais terrestres armazenados serão excluídos antes Iniciando a pesquisa atual."
 
 msgid "If you select \"yes\" the scan will only save channels that are not encrypted; \"no\" will find encrypted and non-encrypted channels."
-msgstr ""
-
-msgid "MakeBouquet"
-msgstr ""
-
-msgid "Making bouquet..."
-msgstr ""
-
-msgid "Most transmitters in European countries only have TV channels in the UHF band."
-msgstr ""
+msgstr "Ao selecionar \"Sim\" a busca salvará apenas canais que não são encriptados; \"Não\" encontrará canais encriptados e não encriptados."
 
 msgid "No frequencies to search"
-msgstr ""
+msgstr "Sem frequências para pesquisar"
 
 msgid "No terrestrial tuner found"
-msgstr ""
-
-msgid "No transponders to read"
-msgstr ""
+msgstr "Não foi encontrado o sintonizador terrestre"
 
 msgid "No valid NIM found for terrestrial"
-msgstr ""
+msgstr "Não foi encontrado um NIM válido para terrestre"
 
 msgid "Only free scan"
-msgstr ""
-
-#, python-format
-msgid "Reading SI tables on %s MHz"
-msgstr ""
-
-#, python-format
-msgid "Reading channel %s"
-msgstr ""
-
-msgid "Reading streams"
-msgstr ""
+msgstr "Apenas busca livre"
 
 msgid "Really close without saving settings?"
-msgstr ""
-
-msgid "Restrict search to single ONID"
-msgstr ""
+msgstr "Fechar sem salvar as configurações?"
 
 msgid "Scan"
-msgstr ""
-
-#, python-format
-msgid "Scanning channel %s"
-msgstr ""
+msgstr "Busca"
 
 msgid "Scanning for active transponders"
-msgstr ""
-
-msgid "Select \"Yes\" to restrict the search to multiplexes that belong to a single original network ID (ONID). Select \"No\" to search all ONIDs."
-msgstr ""
+msgstr "Pesquisando por transponders ativos"
 
 msgid "Select a tuner that is configured for terrestrial scans. \"Automatic\" will pick the highest spec available tuner."
-msgstr ""
+msgstr "Selecione um sintonizador configurado para varreduras terrestres. \"Automatico\" vai  escolher o melhor sintonizador disponível."
 
 msgid "Selected tuner is not cofigured"
-msgstr ""
+msgstr "O tuner selecionado não está cofigurado"
 
 msgid "Starting scanner"
-msgstr ""
+msgstr "Inciando a varredura"
 
 msgid "Starting search..."
-msgstr ""
-
-#, python-format
-msgid "TSID: %d, ONID: %d"
-msgstr ""
-
-msgid "Terrestrial"
-msgstr ""
+msgstr "Iniciando a pesquisa..."
 
 msgid "Terrestrial Scan"
-msgstr ""
+msgstr "Busca Terrestre"
 
 msgid "TerrestrialScan"
-msgstr ""
+msgstr "BuscaTerrestre"
 
 msgid "Tuner"
-msgstr ""
-
-#, python-format
-msgid "Tuning %s MHz"
-msgstr ""
+msgstr "Tuner"
 
 msgid "UHF Europe"
-msgstr ""
+msgstr "UHF Europa"
 
 msgid "UHF/VHF Europe"
-msgstr ""
+msgstr "UHF/VHF Europa"
+
+msgid "Bandplan"
+msgstr "Banda"
+
+msgid "Most transmitters in European countries only have TV channels in the UHF band. Select \"From XML\" to access bandplans that are preloaded on the device."
+msgstr "A maioria dos transmissores nos países europeus tem apenas canais de TV na banda UHF. Selecione \"desde o XML\" para aceder aos planos de banda que são pré-carregados no dispositivo."
+
+msgid "If you know for sure there are no T2 multiplexes in your area select yes. This will speed up scan time."
+msgstr "Sabendo, com certeza, a existência de multiplexes T2 na sua área, selecione sim. Isso acelerará o tempo de varredura."
+
+msgid "Select \"Yes\" to restrict the search to multiplexes that belong to a single original network ID (ONID). Select \"No\" to search all ONIDs."
+msgstr "Selecione \"Sim\" para restringir a pesquisa a multiplexes que pertencem a um único ID de rede original (ONID). Selecione \"Não\" para pesquisar todos os ONIDs."
+
+msgid "If you select \"yes\" and LCNs are found in the NIT, the scan will create a bouquet of terrestrial channels in LCN order and add it to the bouquet list."
+msgstr "Ao selecionar \"Sim\" e forem encontrados LCNs no NIT, a busca criará um bouquet de canais terrestres na ordem LCN e adicioná-lo à lista de bouquet."
+
+msgid "If you select \"yes\" and radio services are fond these will be place in a separate bouquet. Otherwise TV and radio services will be placed in a combined bouquet."
+msgstr "Ao selecionar \"Sim\" e os serviços de rádio forem encontrados, estes serão colocados num bouquet separado. Caso contrário, a TV e os serviços de rádio serão colocados num bouquet combinado."
+
+msgid "Select the LCN descriptor used in your area. 0x83 is the default DVB standard descriptor. 0x87 is used in some Scandinavian countries."
+msgstr "Selecione o descriptor LCN usado na sua área. 0x83 é o descriptor DVB padrão. 0x87 é usado em alguns países escandinavos."
+
+msgid "Select \"yes\" to create a custom terrestrial.xml file and install it in /etc/enigma2 for system scans to use."
+msgstr "Selecionar \"Sim\" para criar um arquivo \"Terrestrial.XML\" personalizado e instalar em /etc/enigma2 para ser usado pelo sistema de procura."
+
+msgid "Period of time to wait for the tuner to stabalise before taking a signal quality reading. 2 seconds is good for most hardware but some may require longer."
+msgstr "Período de tempo para esperar que o sintonizador estabilize antes de tomar uma leitura de qualidade de sinal. 2 segundos é bom para a maioria do hardware, mas alguns podem exigir mais."
+
+msgid "Signal quality stabisation time (secs)"
+msgstr "Tempo de estabilização de qualidade de sinal (segs)"
+
+msgid "Create terrestrial.xml file"
+msgstr "Criar arquivo terrestrial.xml"
+
+msgid "-Create separate radio bouquet"
+msgstr "-Criar bouquet de rádio separado"
+
+msgid "Create terrestrial bouquet"
+msgstr "Criar bouquet terrestre"
+
+msgid "Restrict search to single ONID"
+msgstr "Restringir a pesquisa para um único ONID"
+
+msgid "Skip T2"
+msgstr "Ignorar T2"
