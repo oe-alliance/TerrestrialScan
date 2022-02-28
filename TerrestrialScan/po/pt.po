@@ -35,7 +35,7 @@ msgid "Exit"
 msgstr "Sair"
 
 msgid "If you select \"yes\" all stored terrestrial channels will be deleted before starting the current search."
-msgstr "Ao selecionar \"Sim\" todos os canais terrestres armazenados serão excluídos antes Iniciando a pesquisa atual."
+msgstr "Ao selecionar \"Sim\" todos os canais terrestres armazenados serão excluídos antes de iniciar a pesquisa atual."
 
 msgid "If you select \"yes\" the scan will only save channels that are not encrypted; \"no\" will find encrypted and non-encrypted channels."
 msgstr "Ao selecionar \"Sim\" a busca salvará apenas canais que não são encriptados; \"Não\" encontrará canais encriptados e não encriptados."
