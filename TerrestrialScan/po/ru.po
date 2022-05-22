@@ -276,3 +276,10 @@ msgstr "UHF Европа"
 #: plugin.py:32
 msgid "UHF/VHF Europe"
 msgstr "UHF/VHF Европа"
+
+msgid "Skip T2"
+msgstr "Пропускать T2"
+
+msgid "If you know for sure there are no T2 multiplexes in your area select yes. This will speed up scan time."
+msgstr "Если вы точно знаете, что в вашем районе нет мультиплексов T2, выберите да. Это ускорит время сканирования."
+
