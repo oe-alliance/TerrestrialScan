@@ -2,12 +2,12 @@
 # Copyright (C) 2016 THE enigma2-oe-alliance-plugins'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the enigma2-oe-alliance-plugins package.
 # Automatically generated, 2016.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: enigma2-oe-alliance-plugins 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 19:14+0200\n"
+"POT-Creation-Date: 2022-11-14 12:41+0000\n"
 "PO-Revision-Date: 2018-10-14 22:29+0200\n"
 "Last-Translator: Manfred Aabye <openmanniland@gmx.de>\n"
 "Language-Team: none\n"
@@ -18,149 +18,284 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.2\n"
 
-msgid "- ONID to search"
-msgstr "- ONID Suche"
+#: ../src/TerrestrialScan.py:207 ../src/TerrestrialScan.py:213
+#, python-format
+msgid "(ch %s)"
+msgstr ""
 
+#: ../src/plugin.py:134
+msgid "All"
+msgstr ""
+
+#: ../src/plugin.py:34
+msgid "Australia generic"
+msgstr ""
+
+#: ../src/plugin.py:80
 msgid "Automatic"
 msgstr "Automatisch"
 
-msgid "Band"
+#: ../src/plugin.py:95
+#, fuzzy
+msgid "Bandplan"
 msgstr "Band"
 
+#: ../src/MakeBouquet.py:176 ../src/TerrestrialScan.py:361
 msgid "Cannot allocate the demuxer"
 msgstr "Kann den Demuxer nicht zuordnen"
 
+#: ../src/TerrestrialScan.py:334
 msgid "Cannot free NIM because a recording is in progress"
 msgstr "Kein freier Tuner, weil eine Aufnahme läuft"
 
+#: ../src/MakeBouquet.py:170 ../src/TerrestrialScan.py:350
 msgid "Cannot get frontend"
 msgstr "Konnte Fronted nicht erreichen"
 
+#: ../src/MakeBouquet.py:160 ../src/TerrestrialScan.py:338
 msgid "Cannot get the NIM"
 msgstr "Konnte den Tuner nicht erreichen"
 
+#: ../src/MakeBouquet.py:148 ../src/TerrestrialScan.py:275
 msgid "Cannot retrieve Resource Manager instance"
 msgstr "Kann nicht die Resource-Manager-Instanz abrufen"
 
+#: ../src/plugin.py:116
+msgid "Channel list ID"
+msgstr ""
+
+#: ../src/plugin.py:102
 msgid "Clear before scan"
 msgstr "Vor dem Suchlauf löschen"
 
+#: ../src/plugin.py:136
+msgid "Country"
+msgstr ""
+
+#: ../src/plugin.py:113
+#, fuzzy
+msgid "Create separate radio bouquet"
+msgstr "Terrestrisches Kanalliste erstellen"
+
+#: ../src/plugin.py:111
 msgid "Create terrestrial bouquet"
 msgstr "Terrestrisches Kanalliste erstellen"
 
+#: ../src/plugin.py:119
+#, fuzzy
+msgid "Create terrestrial.xml file"
+msgstr "Terrestrisches Kanalliste erstellen"
+
+#: ../src/plugin.py:116
+msgid "Enter channel list ID used in your area. If you are not sure enter zero."
+msgstr ""
+
+#: ../src/plugin.py:109
 msgid "Enter the original network ID (ONID) of the multiplexes you wish to restrict the search to. UK terrestrial television normally ONID \"9018\"."
 msgstr "Geben Sie die ursprüngliche Netzwerk-ID (ONID) der Multiplexe ein, auf die Sie die Suche beschränken möchten. BRITISCHES terrestrisches Fernsehen normalerweise ONID \"9018\"."
 
+#: ../src/plugin.py:65
 msgid "Exit"
 msgstr "Abbrechen"
 
-#, python-format
+#: ../src/TerrestrialScan.py:214
+#, fuzzy, python-format
 msgid "Found %d unique transponder"
-msgid_plural "Found %d unique transponders"
-msgstr[0] "%d gefundene eindeutige Transponder"
-msgstr[1] "%d gefundene eindeutige Transponder"
+msgstr "%d gefundene eindeutige Transponder"
 
+#: ../src/TerrestrialScan.py:214
+#, fuzzy, python-format
+msgid "Found %d unique transponders"
+msgstr "%d gefundene eindeutige Transponder"
+
+#: ../src/plugin.py:36
+msgid "From XML"
+msgstr ""
+
+#: ../src/plugin.py:104
+msgid "If you know for sure there are no T2 multiplexes in your area select yes. This will speed up scan time."
+msgstr ""
+
+#: ../src/plugin.py:102
 msgid "If you select \"yes\" all stored terrestrial channels will be deleted before starting the current search."
 msgstr "Wenn Sie \"Ja\" auswählen werden alle gespeicherten terrestrischen Kanäle vor dem Suchlauf gelöscht."
 
+#: ../src/plugin.py:111
 msgid "If you select \"yes\" and LCNs are found in the NIT, the scan will create a bouquet of terrestrial channels in LCN order and add it to the bouquet list."
 msgstr "Wenn Sie \"Ja\" wählen und LCNs im NIT gefunden werden, wird der Scan einen Liste von terrestrischen Kanälen in LCN Reihenfolge erstellen und in die Kanalliste aufgenommen."
 
+#: ../src/plugin.py:113
+msgid "If you select \"yes\" and radio services are fond these will be place in a separate bouquet. Otherwise TV and radio services will be placed in a combined bouquet."
+msgstr ""
+
+#: ../src/plugin.py:105
 msgid "If you select \"yes\" the scan will only save channels that are not encrypted; \"no\" will find encrypted and non-encrypted channels."
 msgstr ""
 "Wenn Sie \"Ja\" auswählen werden nur unverschlüsselte Kanäle gesucht,\n"
 "bei \"Nein\" werden verschlüsselte und unverschlüsselte Kanäle gesucht."
 
+#: ../src/plugin.py:114
+msgid "LCN Descriptor"
+msgstr ""
+
+#: ../src/MakeBouquet.py:37
 msgid "MakeBouquet"
 msgstr "Kanalliste erstellen"
 
+#: ../src/MakeBouquet.py:104
 msgid "Making bouquet..."
 msgstr "Kanalliste erstellen..."
 
-msgid "Most transmitters in European countries only have TV channels in the UHF band."
+#: ../src/plugin.py:95
+#, fuzzy
+msgid "Most transmitters in European countries only have TV channels in the UHF band. Select \"From XML\" to access bandplans that are preloaded on the device."
 msgstr "Die meisten Sender in den europäischen Ländern haben nur TV-Kanäle im UHF-Band."
 
+#: ../src/TerrestrialScan.py:198
 msgid "No frequencies to search"
 msgstr "Keine Frequenzen zum Suchen"
 
+#: ../src/TerrestrialScan.py:251 ../src/TerrestrialScan.py:269
 msgid "No terrestrial tuner found"
 msgstr "Kein terrestrischen Tuner gefunden"
 
+#: ../src/MakeBouquet.py:116
 msgid "No transponders to read"
 msgstr "Keine Transponder zum lesen"
 
+#: ../src/TerrestrialScan.py:316
 msgid "No valid NIM found for terrestrial"
 msgstr "Kein gültiger Tuner für DVB-T"
 
+#: ../src/plugin.py:109
+#, fuzzy
+msgid "ONID to search"
+msgstr "- ONID Suche"
+
+#: ../src/plugin.py:105
 msgid "Only free scan"
 msgstr "Nur freie Kanäle suchen"
 
+#: ../src/plugin.py:120
+msgid "Period of time to wait for the tuner to stabalise before taking a signal quality reading. 2 seconds is good for most hardware but some may require longer."
+msgstr ""
+
+#: ../src/TerrestrialScan.py:379
+#, fuzzy, python-format
+msgid "Reading %s MHz (ch %s)"
+msgstr "Lese Kanal %s"
+
+#: ../src/MakeBouquet.py:194
 #, python-format
 msgid "Reading SI tables on %s MHz"
 msgstr "Lese SI Tabellen auf %s MHz"
 
-#, python-format
-msgid "Reading channel %s"
-msgstr "Lese Kanal %s"
-
+#: ../src/MakeBouquet.py:105
 msgid "Reading streams"
 msgstr "Lese Streams"
 
+#: ../src/plugin.py:196
 msgid "Really close without saving settings?"
 msgstr "Wirklich beenden ohne zu speichern?"
 
+#: ../src/plugin.py:150
+msgid "Region"
+msgstr ""
+
+#: ../src/plugin.py:106
 msgid "Restrict search to single ONID"
 msgstr "Suche auf Single ONID beschränken"
 
+#: ../src/plugin.py:66
 msgid "Scan"
 msgstr "Suchlauf"
 
-#, python-format
-msgid "Scanning channel %s"
-msgstr "Durchsuche Kanal %s"
-
+#: ../src/TerrestrialScan.py:187
 msgid "Scanning for active transponders"
 msgstr "Aktive Transponder suchen"
 
+#: ../src/plugin.py:106
 msgid "Select \"Yes\" to restrict the search to multiplexes that belong to a single original network ID (ONID). Select \"No\" to search all ONIDs."
 msgstr "Wählen Sie \"Ja\", um die Suche auf Multiplexe zu beschränken, die zu einer einzigen ursprünglichen Netzwerk-ID (ONID) gehören. Wählen Sie \"Nein\", um alle ONIDs zu suchen."
 
+#: ../src/plugin.py:119
+msgid "Select \"yes\" to create a custom terrestrial.xml file and install it in /etc/enigma2 for system scans to use."
+msgstr ""
+
+#: ../src/plugin.py:94
 msgid "Select a tuner that is configured for terrestrial scans. \"Automatic\" will pick the highest spec available tuner."
 msgstr ""
 "Wählen Sie einen Tuner, der für den terrestrischen Suchlauf konfiguriert ist.\n"
 "\"Automatisch\", den Tuner mit dem besten Empfangssignal wählen."
 
+#: ../src/plugin.py:114
+msgid "Select the LCN descriptor used in your area. 0x83 is the default DVB standard descriptor. 0x87 is used in some Scandinavian countries."
+msgstr ""
+
+#: ../src/plugin.py:136
+msgid "Select your country. If not available select 'all'."
+msgstr ""
+
+#: ../src/plugin.py:150
+msgid "Select your region. If not available change 'Country' to 'all' and select one of the default alternatives."
+msgstr ""
+
+#: ../src/TerrestrialScan.py:264
 msgid "Selected tuner is not cofigured"
 msgstr "Ausgewählter Tuner ist nicht konfiguriert"
 
+#: ../src/plugin.py:120
+msgid "Signal quality stabisation time (secs)"
+msgstr ""
+
+#: ../src/plugin.py:104
+msgid "Skip T2"
+msgstr ""
+
+#: ../src/MakeBouquet.py:60 ../src/TerrestrialScan.py:97
 msgid "Starting scanner"
 msgstr "Starte Suchlauf"
 
+#: ../src/TerrestrialScan.py:186
 msgid "Starting search..."
 msgstr "Suche starten..."
 
+#: ../src/MakeBouquet.py:126
 #, python-format
 msgid "TSID: %d, ONID: %d"
 msgstr "TSID: %d, ONID: %d"
 
+#: ../src/MakeBouquet.py:51
 msgid "Terrestrial"
 msgstr "Terrestrisch"
 
+#: ../src/plugin.py:51 ../src/plugin.py:272 ../src/plugin.py:288
 msgid "Terrestrial Scan"
 msgstr "Terrestrischer Suchlauf"
 
+#: ../src/MakeBouquet.py:506 ../src/TerrestrialScan.py:94
+#: ../src/TerrestrialScan.py:178
 msgid "TerrestrialScan"
 msgstr "Terrestrischer Suchlauf"
 
+#: ../src/plugin.py:94
 msgid "Tuner"
 msgstr "Tuner"
 
+#: ../src/MakeBouquet.py:125
 #, python-format
 msgid "Tuning %s MHz"
 msgstr "Tuning %s MHz"
 
+#: ../src/TerrestrialScan.py:213
+#, fuzzy, python-format
+msgid "Tuning %s MHz %s"
+msgstr "Tuning %s MHz"
+
+#: ../src/plugin.py:32
 msgid "UHF Europe"
 msgstr "UHF Europa"
 
+#: ../src/plugin.py:33
 msgid "UHF/VHF Europe"
 msgstr "UHF/VHF Europa"
