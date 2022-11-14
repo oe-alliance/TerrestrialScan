@@ -187,6 +187,7 @@ class TerrestrialScanScreen(ConfigListScreen, Screen):
 	def startScan(self):
 		args = {"feid": int(self.scan_nims.value), "uhf_vhf": config.plugins.TerrestrialScan.uhf_vhf.value, "networkid": int(config.plugins.TerrestrialScan.networkid.value), "restrict_to_networkid": config.plugins.TerrestrialScan.networkid_bool.value, "stabliseTime": config.plugins.TerrestrialScan.stabliseTime.value, "skipT2": config.plugins.TerrestrialScan.skipT2.value}
 		if config.plugins.TerrestrialScan.uhf_vhf.value == "xml":
+			args["country"] = self.terrestrialCountries.value
 			args["region"] = self.terrestrialRegions.value
 		self.session.openWithCallback(self.terrestrialScanCallback, TerrestrialScan, args)
 

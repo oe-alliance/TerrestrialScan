@@ -111,6 +111,7 @@ class TerrestrialScan(Screen):
 		self.restrict_to_networkid = False
 		self.stabliseTime = 2 # time in seconds for tuner to stablise on tune before taking a signal quality reading
 		self.region = None
+		self.country = None
 		self.skipT2 = False
 		if args:
 			if "feid" in args:
@@ -125,6 +126,8 @@ class TerrestrialScan(Screen):
 				self.stabliseTime = args["stabliseTime"]
 			if "region" in args:
 				self.region = args["region"]
+			if "country" in args:
+				self.country = args["country"]
 			if "skipT2" in args:
 				self.skipT2 = args["skipT2"]
 		self.isT2tuner = False
@@ -200,13 +203,14 @@ class TerrestrialScan(Screen):
 			self.system = self.scanTransponders[self.index]["system"]
 			self.bandwidth = self.scanTransponders[self.index]["bandwidth"]
 			self.frequency = self.scanTransponders[self.index]["frequency"]
-			print("[TerrestrialScan][Search] Scan frequency %d (ch %s)" % (self.frequency, getChannelNumber(self.frequency, self.uhf_vhf)))
+			channelNumber = getChannelNumber(self.frequency, self.uhf_vhf == "xml" and ("australia" if self.country == "AUS"  else "uhf") or self.uhf_vhf)
+			print("[TerrestrialScan][Search] Scan frequency %d %s" % (self.frequency, (_("(ch %s)") % channelNumber) if channelNumber else ""))
 			print("[TerrestrialScan][Search] Scan system %d" % self.system)
 			print("[TerrestrialScan][Search] Scan bandwidth %d" % self.bandwidth)
 			self.progresscurrent = self.index
 			self["progress_text"].value = self.progresscurrent
 			self["progress"].setValue(self.progresscurrent)
-			self["action"].setText(_("Tuning %s MHz (ch %s)") % (str(self.frequency // 1000000), getChannelNumber(self.frequency, self.uhf_vhf)))
+			self["action"].setText(_("Tuning %s MHz %s") % (str(self.frequency // 1000000), (_("(ch %s)") % channelNumber) if channelNumber else ""))
 			self["status"].setText((len(self.transponders_unique) == 1 and _("Found %d unique transponder") or _("Found %d unique transponders")) % len(self.transponders_unique))
 			self.index += 1
 			if self.frequency in self.transponders_found or self.system == eDVBFrontendParametersTerrestrial.System_DVB_T2 and self.isT2tuner == False:
