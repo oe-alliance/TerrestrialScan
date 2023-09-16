@@ -30,6 +30,7 @@ config.plugins.TerrestrialScan.onlyfree = ConfigYesNo(default=True)
 config.plugins.TerrestrialScan.skipT2 = ConfigYesNo(default=False)
 uhf_vhf_choices = [
 			('uhf', _("UHF Europe")),
+			('uhf_short', _("UHF Europe channels 21-49")),
 			('uhf_vhf', _("UHF/VHF Europe")),
 			('australia', _("Australia generic"))]
 if nimmanager.getTerrestrialsList(): # check transponders are available from terrestrial.xml
@@ -92,7 +93,7 @@ class TerrestrialScanScreen(ConfigListScreen, Screen):
 		self.indent = "- "
 		setup_list = []
 		setup_list.append(getConfigListEntry(_("Tuner"), self.scan_nims, _('Select a tuner that is configured for terrestrial scans. "Automatic" will pick the highest spec available tuner.')))
-		setup_list.append(getConfigListEntry(_("Bandplan"), config.plugins.TerrestrialScan.uhf_vhf, _('Most transmitters in European countries only have TV channels in the UHF band. Select "From XML" to access bandplans that are preloaded on the device.')))
+		setup_list.append(getConfigListEntry(_("Bandplan"), config.plugins.TerrestrialScan.uhf_vhf, _('Most transmitters in European countries only have TV channels in the UHF band. Select "UHF Europe channels 21-49" in countries that are now using channels 50+ for GSM. Select "From XML" to access bandplans that are preloaded on the device.')))
 
 		if config.plugins.TerrestrialScan.uhf_vhf.value == "xml":
 			self.setTerrestrialLocationEntries()

@@ -149,9 +149,9 @@ class TerrestrialScan(Screen):
 			for a in range(5, 13):
 				for b in systems: # system
 					self.scanTransponders.append({"frequency": channel2freq(a, bandwidth), "system": b, "bandwidth": bandwidth})
-		if self.uhf_vhf in ("uhf", "uhf_vhf"):
+		if self.uhf_vhf in ("uhf", "uhf_short", "uhf_vhf"):
 			bandwidth = 8
-			for a in range(21, 70):
+			for a in range(21, 50 if self.uhf_vhf == "uhf_short" else 70):
 				for b in systems: # system
 					self.scanTransponders.append({"frequency": channel2freq(a, bandwidth), "system": b, "bandwidth": bandwidth})
 		if self.uhf_vhf == "australia":
