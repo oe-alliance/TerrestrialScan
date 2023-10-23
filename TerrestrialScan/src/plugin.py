@@ -206,6 +206,10 @@ class TerrestrialScanScreen(ConfigListScreen, Screen):
 		ConfigListScreen.keyRight(self)
 		self.newConfig()
 
+	def keySelect(self):
+		ConfigListScreen.keySelect(self)
+		self.newConfig()
+
 	def newConfig(self):
 		cur = self["config"].getCurrent()
 		if len(cur) > 1:
