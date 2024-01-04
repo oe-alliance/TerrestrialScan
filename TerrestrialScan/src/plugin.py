@@ -153,9 +153,14 @@ class TerrestrialScanScreen(ConfigListScreen, Screen):
 	def countrycodeToCountry(self, cc):
 		if not hasattr(self, 'countrycodes'):
 			self.countrycodes = {}
-			from Tools.CountryCodes import ISO3166
-			for country in ISO3166:
-				self.countrycodes[country[2]] = country[0]
+			try:
+				from Tools.CountryCodes import ISO3166
+				for country in ISO3166:
+					self.countrycodes[country[2]] = country[0]
+			except ImportError:
+				from Components.International import international
+				for country in international.COUNTRY_DATA.values():
+					self.countrycodes[country[international.COUNTRY_ALPHA3]] = country[international.COUNTRY_TRANSLATED]
 		if cc.upper() in self.countrycodes:
 			return self.countrycodes[cc.upper()]
 		return cc
