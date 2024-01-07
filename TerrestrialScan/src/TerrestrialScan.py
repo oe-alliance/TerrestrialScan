@@ -23,11 +23,10 @@ from . import dvbreader
 from .TerrestrialScanSkin import downloadBar
 
 
-def setParams(frequency, system, bandwidth=8): # freq is nine digits (474000000)
+def setParams(frequency, system, bandwidth): # freq is nine digits (474000000), bandwidth in Hz (8000000)
 	params = eDVBFrontendParametersTerrestrial()
 	params.frequency = frequency
-#	params.bandwidth = terrestrialTransponderconvBandwidth_P(bandwidth * 1000000)
-	params.bandwidth = bandwidth * 1000000 # for testing: feed in bandwidth value in hz as dpeddi reports failure to tune on some hardware with the previous code
+	params.bandwidth = bandwidth
 	params.code_rate_hp = eDVBFrontendParametersTerrestrial.FEC_Auto
 	params.code_rate_lp = eDVBFrontendParametersTerrestrial.FEC_Auto
 	params.inversion = eDVBFrontendParametersTerrestrial.Inversion_Unknown
@@ -43,17 +42,6 @@ def setParamsFe(params):
 	params_fe = eDVBFrontendParameters()
 	params_fe.setDVBT(params)
 	return params_fe
-
-def terrestrialTransponderconvBandwidth_P(_bandWidth):
-	bandWidth = {
-		8000000 : eDVBFrontendParametersTerrestrial.Bandwidth_8MHz,
-		7000000 : eDVBFrontendParametersTerrestrial.Bandwidth_7MHz,
-		6000000 : eDVBFrontendParametersTerrestrial.Bandwidth_6MHz,
-		5000000 : eDVBFrontendParametersTerrestrial.Bandwidth_5MHz,
-		1712000 : eDVBFrontendParametersTerrestrial.Bandwidth_1_712MHz,
-		10000000 : eDVBFrontendParametersTerrestrial.Bandwidth_10MHz,
-	}.get(_bandWidth, eDVBFrontendParametersTerrestrial.Bandwidth_8MHz)
-	return bandWidth
 
 def channel2freq(channel, bandwidth=8): # Europe channels
 	if 4 < channel < 13: # Band III
@@ -148,26 +136,26 @@ class TerrestrialScan(Screen):
 			bandwidth = 7
 			for a in range(5, 13):
 				for b in systems: # system
-					self.scanTransponders.append({"frequency": channel2freq(a, bandwidth), "system": b, "bandwidth": bandwidth})
+					self.scanTransponders.append({"frequency": channel2freq(a, bandwidth), "system": b, "bandwidth": bandwidth * 1000000})
 		if self.uhf_vhf in ("uhf", "uhf_short", "uhf_vhf"):
 			bandwidth = 8
 			for a in range(21, 50 if self.uhf_vhf == "uhf_short" else 70):
 				for b in systems: # system
-					self.scanTransponders.append({"frequency": channel2freq(a, bandwidth), "system": b, "bandwidth": bandwidth})
+					self.scanTransponders.append({"frequency": channel2freq(a, bandwidth), "system": b, "bandwidth": bandwidth * 1000000})
 		if self.uhf_vhf == "australia":
 			bandwidth = 7
 			base_frequency = 177500000
 			for a in list(range(0, 8)) + list(range(50, 74)):
 				freq = (base_frequency + (a * bandwidth * 1000000 + (2000000 if a > 8 else 0)))
-				self.scanTransponders.append({"frequency": freq, "system": eDVBFrontendParametersTerrestrial.System_DVB_T, "bandwidth": bandwidth})
+				self.scanTransponders.append({"frequency": freq, "system": eDVBFrontendParametersTerrestrial.System_DVB_T, "bandwidth": bandwidth * 1000000})
 		if self.uhf_vhf == "xml":
 			# frequency 1, inversion 9, bandwidth 2, fechigh 4, feclow 5, modulation 3, transmission 7, guard 6, hierarchy 8, system 10, plp_id 1
 			for tp in nimmanager.getTranspondersTerrestrial(self.region):
 				# system contains "-1" when both DVB-T and DVB-T2 are to be scanned
 				if tp[10] < 1: # DVB-T
-					self.scanTransponders.append({"frequency": tp[1], "system": eDVBFrontendParametersTerrestrial.System_DVB_T, "bandwidth": tp[2] // 1000000})
+					self.scanTransponders.append({"frequency": tp[1], "system": eDVBFrontendParametersTerrestrial.System_DVB_T, "bandwidth": tp[2]})
 				if tp[10] != 0: # DVB-T2
-					self.scanTransponders.append({"frequency": tp[1], "system": eDVBFrontendParametersTerrestrial.System_DVB_T2, "bandwidth": tp[2] // 1000000})
+					self.scanTransponders.append({"frequency": tp[1], "system": eDVBFrontendParametersTerrestrial.System_DVB_T2, "bandwidth": tp[2]})
 		self.transponders_found = []
 		self.transponders_unique = {}
 		self.onClose.append(self.__onClose)
