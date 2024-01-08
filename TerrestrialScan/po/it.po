@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: OBH 5.0  it_IT\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-08 04:18+0100\n"
-"PO-Revision-Date: 2024-01-08 05:10+0100\n"
+"PO-Revision-Date: 2024-01-08 08:46+0100\n"
 "Last-Translator: Massimo Pissarello <mapi68@gmail.com>\n"
 "Language-Team: Italian <>\n"
 "Language: it\n"
@@ -176,9 +176,9 @@ msgid ""
 " preloaded on the device."
 msgstr ""
 "La maggior parte dei trasmettitori nei paesi europei ha solo canali TV nella"
-" banda UHF. Seleziona \"UHF Europa 21-49\" nei paesi che ora usano i canali"
-" 50+ per GSM. Seleziona \"Da XML\" per accedere alle bande preinstallate sul"
-" dispositivo."
+" banda UHF. Seleziona \"UHF Europa canali 21-49\" nei paesi che usano i"
+" canali sopra il 50 per la telefonia mobile. Seleziona \"Da XML\" per"
+" accedere alle bande preinstallate sul dispositivo."
 
 #: ../src/TerrestrialScan.py:186
 msgid "No frequencies to search"
@@ -351,9 +351,10 @@ msgstr "UHF Europa"
 
 #: ../src/plugin.py:33
 msgid "UHF Europe channels 21-49"
-msgstr "UHF Europa 21-49"
+msgstr "UHF Europa canali 21-49"
 
 #: ../src/plugin.py:34
 msgid "UHF/VHF Europe"
 msgstr "UHF/VHF Europa"
+
 
