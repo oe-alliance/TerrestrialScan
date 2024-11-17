@@ -20,8 +20,6 @@ from enigma import eComponentScan
 from .TerrestrialScan import TerrestrialScan, setParams
 from .MakeBouquet import MakeBouquet
 
-import os
-
 config.plugins.TerrestrialScan = ConfigSubsection()
 config.plugins.TerrestrialScan.networkid_bool = ConfigYesNo(default=False)
 config.plugins.TerrestrialScan.networkid = ConfigInteger(default=0, limits=(0, 65535))
@@ -33,7 +31,7 @@ uhf_vhf_choices = [
 			('uhf_short', _("UHF Europe channels 21-49")),
 			('uhf_vhf', _("UHF/VHF Europe")),
 			('australia', _("Australia generic"))]
-if nimmanager.getTerrestrialsList(): # check transponders are available from terrestrial.xml
+if nimmanager.getTerrestrialsList():  # check transponders are available from terrestrial.xml
 	uhf_vhf_choices.append(('xml', _("From XML")))
 config.plugins.TerrestrialScan.uhf_vhf = ConfigSelection(default='uhf', choices=uhf_vhf_choices)
 config.plugins.TerrestrialScan.makebouquet = ConfigYesNo(default=True)
@@ -85,7 +83,7 @@ class TerrestrialScanScreen(ConfigListScreen, Screen):
 
 		self.createSetup()
 
-		if not self.selectionChanged in self["config"].onSelectionChanged:
+		if self.selectionChanged not in self["config"].onSelectionChanged:
 			self["config"].onSelectionChanged.append(self.selectionChanged)
 		self.selectionChanged()
 
@@ -124,13 +122,13 @@ class TerrestrialScanScreen(ConfigListScreen, Screen):
 		self["config"].l.setList(setup_list)
 
 	def setTerrestrialLocationEntries(self):
-		slotid = self.dvbt_capable_nims[0] if self.scan_nims.value < 0 else self.scan_nims.value # number of first enabled terrestrial tuner if automatic is selected.
+		slotid = self.dvbt_capable_nims[0] if self.scan_nims.value < 0 else self.scan_nims.value  # number of first enabled terrestrial tuner if automatic is selected.
 		nimConfig = nimmanager.nim_slots[slotid].config
 
 		# country
 		if not hasattr(self, "terrestrialCountriesEntry"):
 			terrestrialcountrycodelist = nimmanager.getTerrestrialsCountrycodeList()
-			terrestrialcountrycode = nimmanager.getTerrestrialCountrycode(slotid) # number of first enabled terrestrial tuner if automatic is selected.
+			terrestrialcountrycode = nimmanager.getTerrestrialCountrycode(slotid)  # number of first enabled terrestrial tuner if automatic is selected.
 			default = terrestrialcountrycode in terrestrialcountrycodelist and terrestrialcountrycode or None
 			choices = [("all", _("All"))] + sorted([(x, self.countrycodeToCountry(x)) for x in terrestrialcountrycodelist], key=lambda listItem: listItem[1])
 			self.terrestrialCountries = ConfigSelection(default=default, choices=choices)
@@ -184,7 +182,7 @@ class TerrestrialScanScreen(ConfigListScreen, Screen):
 		return SetupSummary
 
 	def keyGo(self):
-#		config.plugins.TerrestrialScan.save()
+		# config.plugins.TerrestrialScan.save()
 		for x in self["config"].list:
 			x[1].save()
 		configfile.save()
@@ -270,7 +268,7 @@ class TerrestrialScanScreen(ConfigListScreen, Screen):
 		if answer:
 			self.close(True)
 
-	def config_mode(self, nim): # Workaround for OpenATV > 5.3
+	def config_mode(self, nim):  # Workaround for OpenATV > 5.3
 		try:
 			return nim.config_mode
 		except AttributeError:
