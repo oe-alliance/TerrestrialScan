@@ -40,11 +40,12 @@ def setParamsFe(params):
 	params_fe.setDVBT(params)
 	return params_fe
 
+
 def channel2freq(channel, bandwidth=8):  # Europe channels
 	if 4 < channel < 13:  # Band III
 		return (((177 + (bandwidth * (channel - 5))) * 1000000) + 500000)
 	elif 20 < channel < 70:  # Bands IV,V
-		return ((474 + (bandwidth * (channel - 21))) * 1000000) # returns nine digits
+		return ((474 + (bandwidth * (channel - 21))) * 1000000)  # returns nine digits
 
 
 def getChannelNumber(frequency, descr):
