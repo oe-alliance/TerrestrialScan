@@ -36,7 +36,7 @@ def downloadBarTemplate():
 	tunerLetterLeftAlign = 955
 	tunerLetterWidth = fontSize
 	snrBoxLeftAlign = 980
-	snrBoxWidth = 87 # up to 7 chars, e.g. "16.2 dB"
+	snrBoxWidth = 87  # up to 7 chars, e.g. "16.2 dB"
 	progressTextBoxLeftAlign = 1080
 	progressTextBoxWidth = 87
 	progressPercentLeftAlign = 1187
@@ -65,15 +65,15 @@ def downloadBarTemplate():
 		</widget>
 	</screen>"""
 	downloadBarValues = [
-		downloadBarHeight, # downloadBarXML line 1, "screen" element
-		actionBoxLeftAlign, textBoxTopMargin, actionBoxWidth, textBoxHeight, fontSize, # downloadBarXML line 2, "action" widget
-		statusBoxLeftAlign, textBoxTopMargin, statusBoxWidth, textBoxHeight, fontSize, # downloadBarXML line 3, "status" widget
-		lockImageLeftAlign, lockImageTopMargin, lockImageWidth, lockImageHeight, # downloadBarXML, "lock_on" widget
-		lockImageLeftAlign, lockImageTopMargin, lockImageWidth, lockImageHeight, # downloadBarXML, "lock_off" widget
-		tunerLetterLeftAlign, textBoxTopMargin, tunerLetterWidth, textBoxHeight, fontSize, # downloadBarXML, "tuner letter" widget
-		snrBoxLeftAlign, textBoxTopMargin, snrBoxWidth, textBoxHeight, fontSize, # downloadBarXML, "SNR" widget
-		progressTextBoxLeftAlign, textBoxTopMargin, progressTextBoxWidth, textBoxHeight, fontSize, # downloadBarXML, "progress text" widget
-		progressPercentLeftAlign, textBoxTopMargin, progressPercentBoxWidth, textBoxHeight, fontSize, # downloadBarXML, "progress percent" widget
+		downloadBarHeight,  # downloadBarXML line 1, "screen" element
+		actionBoxLeftAlign, textBoxTopMargin, actionBoxWidth, textBoxHeight, fontSize,  # downloadBarXML line 2, "action" widget
+		statusBoxLeftAlign, textBoxTopMargin, statusBoxWidth, textBoxHeight, fontSize,  # downloadBarXML line 3, "status" widget
+		lockImageLeftAlign, lockImageTopMargin, lockImageWidth, lockImageHeight,  # downloadBarXML, "lock_on" widget
+		lockImageLeftAlign, lockImageTopMargin, lockImageWidth, lockImageHeight,  # downloadBarXML, "lock_off" widget
+		tunerLetterLeftAlign, textBoxTopMargin, tunerLetterWidth, textBoxHeight, fontSize,  # downloadBarXML, "tuner letter" widget
+		snrBoxLeftAlign, textBoxTopMargin, snrBoxWidth, textBoxHeight, fontSize,  # downloadBarXML, "SNR" widget
+		progressTextBoxLeftAlign, textBoxTopMargin, progressTextBoxWidth, textBoxHeight, fontSize,  # downloadBarXML, "progress text" widget
+		progressPercentLeftAlign, textBoxTopMargin, progressPercentBoxWidth, textBoxHeight, fontSize,  # downloadBarXML, "progress percent" widget
 	]
 	return insertValues(downloadBarXML, downloadBarValues)
 

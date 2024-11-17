@@ -353,7 +353,7 @@ class MakeBouquet(Screen):
 		if transponders:
 			if transponders[0]["descriptor_tag"] == 0x5A:  # DVB-T
 				self.transponder["system"] = eDVBFrontendParametersTerrestrial.System_DVB_T
-			else: # must be DVB-T2
+			else:  # must be DVB-T2
 				self.transponder["system"] = eDVBFrontendParametersTerrestrial.System_DVB_T2
 
 			if "frequency" in transponders[0] and abs((transponders[0]["frequency"] * 10) - self.transponder["frequency"]) < 1000000 and self.transponder["frequency"] != transponders[0]["frequency"] * 10:
